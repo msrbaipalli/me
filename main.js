@@ -257,7 +257,7 @@ module.exports = ".container-fluid {\n  padding: 0px 25px 80px 25px;\n}\n\n.div1
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"container-fluid\">\n  <div class=\"row\">\n    <div class=\"col-md-6 div1\">\n      <app-introduction></app-introduction>\n    </div>\n    <div class=\"col-md-6 div2\">\n      <gh-gist src=\"https://gist.github.com/bmsrinivasrao/417f816d6203a4391a2c24c1a830ada5.js\"></gh-gist>\n    </div>\n  </div>\n</div>\n\n\n\n"
+module.exports = "<div class=\"container-fluid\">\n  <div class=\"row\">\n    <div class=\"col-md-6 div1\">\n      <app-introduction></app-introduction>\n    </div>\n    <div class=\"col-md-6 div2\">\n      <gh-gist src=\"https://gist.github.com/msrbaipalli/417f816d6203a4391a2c24c1a830ada5.js\"></gh-gist>\n    </div>\n  </div>\n</div>\n\n\n\n"
 
 /***/ }),
 
