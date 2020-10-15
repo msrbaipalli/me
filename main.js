@@ -1291,13 +1291,13 @@ var SearchMeComponent = /** @class */ (function () {
         this._reset();
     };
     SearchMeComponent.prototype.hasSearchMatch = function (key) {
-        var _this = this;
         var items = key && _search_me_constants__WEBPACK_IMPORTED_MODULE_3__["SEARCH_ITEMS"][key];
-        if (Object(_shared_utils_utils_service__WEBPACK_IMPORTED_MODULE_2__["isNullOrUndefined"])(items)) {
+        var searchValue = this.searchValue ? this.searchValue.trim().toLowerCase() : '';
+        if (Object(_shared_utils_utils_service__WEBPACK_IMPORTED_MODULE_2__["isNullOrUndefined"])(items) || Object(_shared_utils_utils_service__WEBPACK_IMPORTED_MODULE_2__["isEmptyString"])(searchValue)) {
             return false;
         }
         return items.some(function (item) {
-            return item.toLowerCase().includes(_this.searchValue.toLowerCase());
+            return item.toLowerCase().includes(searchValue);
         });
     };
     SearchMeComponent.prototype.hasResults = function () {
@@ -1792,14 +1792,22 @@ var SharedModule = /** @class */ (function () {
 /*!***********************************************!*\
   !*** ./src/app/shared/utils/utils.service.ts ***!
   \***********************************************/
-/*! exports provided: isNullOrUndefined */
+/*! exports provided: isString, isNullOrUndefined, isEmptyString */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "isString", function() { return isString; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "isNullOrUndefined", function() { return isNullOrUndefined; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "isEmptyString", function() { return isEmptyString; });
+function isString(value) {
+    return typeof value === 'string';
+}
 function isNullOrUndefined(value) {
     return value === null || value === undefined;
+}
+function isEmptyString(value) {
+    return isString(value) && value.trim() === '';
 }
 
 
