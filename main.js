@@ -165,7 +165,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = ("<div class=\"main-container\">\n    <div class=\"input-group\">\n        <input (keyup.enter)=\"addPlayer()\" type=\"text\" class=\"form-control\" placeholder=\"Enter Player Name:\"\n            [(ngModel)]=\"playerName\">\n        <button mat-raised-button (click)=\"addPlayer()\"> Add Player </button>\n    </div>\n\n    <table class=\"table\">\n\n        <tbody>\n            <tr *ngFor=\"let player of dataSource\">\n                <td>{{ player.name }}</td>\n                <td> {{ getPlayerScores(player) }} </td>\n                <td>\n                    <div class=\"input-group\">\n                        <input min=\"0\" max=\"80\" type=\"number\" class=\"form-control\"\n                            [(ngModel)]=\"scoreInputs[player.name]\">\n                    </div>\n                </td>\n            </tr>\n            <tr>\n        </tbody>\n    </table>\n\n    <button *ngIf=\"dataSource.length > 0\" mat-raised-button (click)=\"addScore()\"> Add Score </button>\n    <button *ngIf=\"dataSource.length > 0\" mat-raised-button (click)=\"resetScores()\"> Reset Scores </button>\n</div>");
+/* harmony default export */ __webpack_exports__["default"] = ("<div class=\"main-container\">\n    <div class=\"input-group\">\n        <input (keyup.enter)=\"addPlayer()\" type=\"text\" class=\"form-control\" placeholder=\"Enter Player Name:\"\n            [(ngModel)]=\"playerName\">\n        <button mat-raised-button (click)=\"addPlayer()\"> Add Player </button>\n    </div>\n\n    <table class=\"table\">\n        <thead>\n            <tr>\n                <th>Player</th>\n                <th>Total Score</th>\n                <th>Enter Score</th>\n            </tr>\n        </thead>\n\n        <tbody>\n            <tr *ngFor=\"let player of dataSource\">\n                <td class=\"player-name\">{{ player.name }}</td>\n                <td class=\"player-score\"> {{ getPlayerScores(player) }} </td>\n                <td class=\"player-score-input\">\n                    <div class=\"input-group\">\n                        <input min=\"0\" max=\"80\" type=\"number\" class=\"form-control\"\n                            [(ngModel)]=\"scoreInputs[player.name]\">\n                    </div>\n                </td>\n            </tr>\n        </tbody>\n    </table>\n\n    <button *ngIf=\"dataSource.length > 0\" mat-raised-button (click)=\"addScore()\"> Add Score </button>\n    <button class=\"red\" *ngIf=\"dataSource.length > 0\" mat-raised-button (click)=\"resetScores()\"> Reset Scores </button>\n    <button class=\"red\" *ngIf=\"dataSource.length > 0\" mat-raised-button (click)=\"resetPlayers()\"> Reset Players\n    </button>\n</div>");
 
 /***/ }),
 
@@ -1331,7 +1331,7 @@ var WORK_EXPERIENCE_LIST = [
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = (":host table {\n  margin: 10px;\n  width: 100%;\n}\n:host button {\n  margin-left: 5px;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInBsYXktY2FyZHMtY291bnRlci9wbGF5LWNhcmRzLWNvdW50ZXIuY29tcG9uZW50LnNjc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQ0k7RUFDSSxZQUFBO0VBQ0EsV0FBQTtBQUFSO0FBR0k7RUFDSSxnQkFBQTtBQURSIiwiZmlsZSI6InBsYXktY2FyZHMtY291bnRlci9wbGF5LWNhcmRzLWNvdW50ZXIuY29tcG9uZW50LnNjc3MiLCJzb3VyY2VzQ29udGVudCI6WyI6aG9zdCB7XG4gICAgdGFibGUge1xuICAgICAgICBtYXJnaW46IDEwcHg7XG4gICAgICAgIHdpZHRoOiAxMDAlO1xuICAgIH1cbiAgICAgIFxuICAgIGJ1dHRvbiB7XG4gICAgICAgIG1hcmdpbi1sZWZ0OiA1cHg7XG4gICAgfVxufVxuXG4iXX0= */");
+/* harmony default export */ __webpack_exports__["default"] = (":host table {\n  margin: 10px;\n  width: 100%;\n}\n:host button {\n  margin-left: 5px;\n  background: #026A78;\n  color: #fff;\n}\n:host button.red {\n  background: #F24436;\n}\n:host .player-name {\n  text-transform: capitalize;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInBsYXktY2FyZHMtY291bnRlci9wbGF5LWNhcmRzLWNvdW50ZXIuY29tcG9uZW50LnNjc3MiLCIuLi9zaGFyZWQvc2hhcmVkLnNjc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBR0k7RUFDSSxZQUFBO0VBQ0EsV0FBQTtBQUZSO0FBS0k7RUFDSSxnQkFBQTtFQUNBLG1CQ1RNO0VEVU4sV0NSQTtBREtSO0FBTUk7RUFDSSxtQkFBQTtBQUpSO0FBT0k7RUFDSSwwQkFBQTtBQUxSIiwiZmlsZSI6InBsYXktY2FyZHMtY291bnRlci9wbGF5LWNhcmRzLWNvdW50ZXIuY29tcG9uZW50LnNjc3MiLCJzb3VyY2VzQ29udGVudCI6WyJAaW1wb3J0ICdzcmMvYXBwL3NoYXJlZC9zaGFyZWQuc2Nzcyc7XG5cbjpob3N0IHtcbiAgICB0YWJsZSB7XG4gICAgICAgIG1hcmdpbjogMTBweDtcbiAgICAgICAgd2lkdGg6IDEwMCU7XG4gICAgfVxuICAgICAgXG4gICAgYnV0dG9uIHtcbiAgICAgICAgbWFyZ2luLWxlZnQ6IDVweDtcbiAgICAgICAgYmFja2dyb3VuZDogJHRoZW1lLWNvbG9yO1xuICAgICAgICBjb2xvcjogJHdoaXRlO1xuICAgIH1cblxuICAgIGJ1dHRvbi5yZWQge1xuICAgICAgICBiYWNrZ3JvdW5kOiAjRjI0NDM2O1xuICAgIH1cblxuICAgIC5wbGF5ZXItbmFtZSB7XG4gICAgICAgIHRleHQtdHJhbnNmb3JtOiBjYXBpdGFsaXplO1xuICAgIH1cbn1cblxuIiwiJGRhcmstcmVkOiAjYjcxYzFjO1xuJHRoZW1lLWNvbG9yOiAjMDI2QTc4O1xuJHRoZW1lLWhvdmVyLWNvbG9yOiAjMEM5Q0I0O1xuJHdoaXRlOiAjZmZmO1xuJGJsYWNrOiAjMTExO1xuIl19 */");
 
 /***/ }),
 
@@ -1398,12 +1398,15 @@ var PlayCardsCounterComponent = /** @class */ (function () {
         });
     };
     PlayCardsCounterComponent.prototype.getPlayerScores = function (player) {
-        return 'Score: [' + player.scores.join(', ') + '] = ' + player.scores.reduce(function (a, b) { return a + b; }, 0);
+        return player.scores.join(', ') + ' = ' + player.scores.reduce(function (a, b) { return a + b; }, 0);
     };
     PlayCardsCounterComponent.prototype.resetScores = function () {
         this.dataSource.forEach(function (player) {
             player.scores = [];
         });
+    };
+    PlayCardsCounterComponent.prototype.resetPlayers = function () {
+        this.dataSource = [];
     };
     PlayCardsCounterComponent.prototype.removeColumn = function () { };
     PlayCardsCounterComponent.ctorParameters = function () { return []; };
