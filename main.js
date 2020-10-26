@@ -165,7 +165,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = ("<div class=\"main-container\">\n    <div class=\"input-group\">\n        <input (keyup.enter)=\"addPlayer()\" type=\"text\" class=\"form-control\" placeholder=\"Enter Player Name:\"\n            [(ngModel)]=\"playerName\">\n        <button mat-raised-button (click)=\"addPlayer()\"> Add Player </button>\n    </div>\n\n    <table class=\"table\">\n        <thead>\n            <tr>\n                <th>Player</th>\n                <th>Total Score</th>\n                <th>Enter Score</th>\n            </tr>\n        </thead>\n\n        <tbody>\n            <tr *ngFor=\"let player of dataSource\">\n                <td class=\"player-name\">{{ player.name }}</td>\n                <td class=\"player-score\"> {{ getPlayerScores(player) }} </td>\n                <td class=\"player-score-input\">\n                    <div class=\"input-group\">\n                        <input min=\"0\" max=\"80\" type=\"number\" class=\"form-control\"\n                            [(ngModel)]=\"scoreInputs[player.name]\">\n                    </div>\n                </td>\n            </tr>\n        </tbody>\n    </table>\n\n    <button *ngIf=\"dataSource.length > 0\" mat-raised-button (click)=\"addScore()\"> Add Score </button>\n    <button class=\"red\" *ngIf=\"dataSource.length > 0\" mat-raised-button (click)=\"resetScores()\"> Reset Scores </button>\n    <!-- <button class=\"red\" *ngIf=\"dataSource.length > 0\" mat-raised-button (click)=\"resetPlayers()\"> Reset Players\n    </button> -->\n</div>");
+/* harmony default export */ __webpack_exports__["default"] = ("<div class=\"main-container\">\n    <div class=\"input-group\">\n        <input (keyup.enter)=\"addPlayer()\" type=\"text\" class=\"form-control\" placeholder=\"Enter Player Name!\"\n            [(ngModel)]=\"playerName\">\n        <button mat-raised-button (click)=\"addPlayer()\"> Add Player </button>\n    </div>\n\n    <div *ngIf=\"players.length > 0\">\n        <table class=\"table\">\n            <thead>\n                <tr>\n                    <th>Rank</th>\n                    <th>Player</th>\n                    <th>Scores</th>\n                    <th (click)=\"onTotalHeaderClick()\">Total\n                        <i class=\"fa\"\n                            [ngClass]=\"{'fa-angle-down': totalHeaderArrowDown, 'fa-angle-up': !totalHeaderArrowDown}\"></i>\n                    </th>\n                    <th>Enter Score</th>\n                </tr>\n            </thead>\n            <tbody>\n                <tr *ngFor=\"let player of players; index as playerIndex\">\n                    <td>{{ playerIndex + 1 }}</td>\n                    <td class=\"player-name\"> {{ player.name }} </td>\n                    <td class=\"player-score\"> {{ getPlayerScores(player) }} </td>\n                    <td class=\"player-total-score\"> {{ getPlayerTotalScore(player) }} </td>\n                    <td class=\"player-score-input\">\n                        <div class=\"input-group\">\n                            <input type=\"number\" class=\"form-control\" [(ngModel)]=\"scoreInputs[player.name]\"\n                                placeholder=\"Enter Score!\">\n                        </div>\n                    </td>\n                    <td class=\"remove-player\">\n                        <i (click)=\"removePlayer(player)\" class=\"fa fa-minus-circle\" aria-hidden=\"true\"></i>\n                    </td>\n                </tr>\n            </tbody>\n        </table>\n\n        <button class=\"add-score-btn\" mat-raised-button (click)=\"addScore()\"> Add Score </button>\n        <button class=\"reset-score-btn\" mat-raised-button (click)=\"resetScores()\"> Reset Scores </button>\n        <!-- <button mat-raised-button (click)=\"resetPlayers()\"> Reset Players </button> -->\n    </div>\n</div>");
 
 /***/ }),
 
@@ -1331,7 +1331,7 @@ var WORK_EXPERIENCE_LIST = [
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = (":host table {\n  margin: 10px;\n  width: 100%;\n}\n:host button {\n  margin-left: 5px;\n  background: #026A78;\n  color: #fff;\n}\n:host button.red {\n  background: #F24436;\n}\n:host .player-name {\n  text-transform: capitalize;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInBsYXktY2FyZHMtY291bnRlci9wbGF5LWNhcmRzLWNvdW50ZXIuY29tcG9uZW50LnNjc3MiLCIuLi9zaGFyZWQvc2hhcmVkLnNjc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBR0k7RUFDSSxZQUFBO0VBQ0EsV0FBQTtBQUZSO0FBS0k7RUFDSSxnQkFBQTtFQUNBLG1CQ1RNO0VEVU4sV0NSQTtBREtSO0FBTUk7RUFDSSxtQkFBQTtBQUpSO0FBT0k7RUFDSSwwQkFBQTtBQUxSIiwiZmlsZSI6InBsYXktY2FyZHMtY291bnRlci9wbGF5LWNhcmRzLWNvdW50ZXIuY29tcG9uZW50LnNjc3MiLCJzb3VyY2VzQ29udGVudCI6WyJAaW1wb3J0ICdzcmMvYXBwL3NoYXJlZC9zaGFyZWQuc2Nzcyc7XG5cbjpob3N0IHtcbiAgICB0YWJsZSB7XG4gICAgICAgIG1hcmdpbjogMTBweDtcbiAgICAgICAgd2lkdGg6IDEwMCU7XG4gICAgfVxuICAgICAgXG4gICAgYnV0dG9uIHtcbiAgICAgICAgbWFyZ2luLWxlZnQ6IDVweDtcbiAgICAgICAgYmFja2dyb3VuZDogJHRoZW1lLWNvbG9yO1xuICAgICAgICBjb2xvcjogJHdoaXRlO1xuICAgIH1cblxuICAgIGJ1dHRvbi5yZWQge1xuICAgICAgICBiYWNrZ3JvdW5kOiAjRjI0NDM2O1xuICAgIH1cblxuICAgIC5wbGF5ZXItbmFtZSB7XG4gICAgICAgIHRleHQtdHJhbnNmb3JtOiBjYXBpdGFsaXplO1xuICAgIH1cbn1cblxuIiwiJGRhcmstcmVkOiAjYjcxYzFjO1xuJHRoZW1lLWNvbG9yOiAjMDI2QTc4O1xuJHRoZW1lLWhvdmVyLWNvbG9yOiAjMEM5Q0I0O1xuJHdoaXRlOiAjZmZmO1xuJGJsYWNrOiAjMTExO1xuIl19 */");
+/* harmony default export */ __webpack_exports__["default"] = (":host table {\n  margin: 10px;\n  width: 100%;\n}\n:host button {\n  margin-left: 5px;\n  background: #026A78;\n  color: #fff;\n}\n:host .reset-score-btn {\n  float: left;\n  background: #b71c1c;\n}\n:host .player-name {\n  text-transform: capitalize;\n}\n:host .add-score-btn {\n  float: right;\n}\n:host .remove-player i {\n  color: #b71c1c;\n  line-height: 40px;\n}\n:host .remove-player i:hover {\n  cursor: pointer;\n}\n:host .rank1Player {\n  background: #00DAC6;\n  color: #111;\n  font-weight: bold;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInBsYXktY2FyZHMtY291bnRlci9wbGF5LWNhcmRzLWNvdW50ZXIuY29tcG9uZW50LnNjc3MiLCIuLi9zaGFyZWQvc2hhcmVkLnNjc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBR0k7RUFDSSxZQUFBO0VBQ0EsV0FBQTtBQUZSO0FBS0k7RUFDSSxnQkFBQTtFQUNBLG1CQ1RNO0VEVU4sV0NSQTtBREtSO0FBTUk7RUFDSSxXQUFBO0VBQ0EsbUJDaEJHO0FEWVg7QUFPSTtFQUNJLDBCQUFBO0FBTFI7QUFRSTtFQUNJLFlBQUE7QUFOUjtBQVNJO0VBQ0ksY0M1Qkc7RUQ2QkgsaUJBQUE7QUFQUjtBQVVJO0VBQ0ksZUFBQTtBQVJSO0FBV0k7RUFDSSxtQkFBQTtFQUNBLFdBQUE7RUFDQSxpQkFBQTtBQVRSIiwiZmlsZSI6InBsYXktY2FyZHMtY291bnRlci9wbGF5LWNhcmRzLWNvdW50ZXIuY29tcG9uZW50LnNjc3MiLCJzb3VyY2VzQ29udGVudCI6WyJAaW1wb3J0ICdzcmMvYXBwL3NoYXJlZC9zaGFyZWQuc2Nzcyc7XG5cbjpob3N0IHtcbiAgICB0YWJsZSB7XG4gICAgICAgIG1hcmdpbjogMTBweDtcbiAgICAgICAgd2lkdGg6IDEwMCU7XG4gICAgfVxuICAgICAgXG4gICAgYnV0dG9uIHtcbiAgICAgICAgbWFyZ2luLWxlZnQ6IDVweDtcbiAgICAgICAgYmFja2dyb3VuZDogJHRoZW1lLWNvbG9yO1xuICAgICAgICBjb2xvcjogJHdoaXRlO1xuICAgIH1cblxuICAgIC5yZXNldC1zY29yZS1idG4ge1xuICAgICAgICBmbG9hdDogbGVmdDtcbiAgICAgICAgYmFja2dyb3VuZDogJGRhcmstcmVkO1xuICAgIH1cblxuICAgIC5wbGF5ZXItbmFtZSB7XG4gICAgICAgIHRleHQtdHJhbnNmb3JtOiBjYXBpdGFsaXplO1xuICAgIH1cblxuICAgIC5hZGQtc2NvcmUtYnRuIHtcbiAgICAgICAgZmxvYXQ6IHJpZ2h0O1xuICAgIH1cblxuICAgIC5yZW1vdmUtcGxheWVyIGkge1xuICAgICAgICBjb2xvcjogJGRhcmstcmVkO1xuICAgICAgICBsaW5lLWhlaWdodDogNDBweDtcbiAgICB9XG5cbiAgICAucmVtb3ZlLXBsYXllciBpOmhvdmVyIHtcbiAgICAgICAgY3Vyc29yOiBwb2ludGVyO1xuICAgIH1cblxuICAgIC5yYW5rMVBsYXllciB7XG4gICAgICAgIGJhY2tncm91bmQ6ICMwMERBQzY7XG4gICAgICAgIGNvbG9yOiAjMTExO1xuICAgICAgICBmb250LXdlaWdodDogYm9sZDtcbiAgICB9XG59XG5cbiIsIiRkYXJrLXJlZDogI2I3MWMxYztcbiR0aGVtZS1jb2xvcjogIzAyNkE3ODtcbiR0aGVtZS1ob3Zlci1jb2xvcjogIzBDOUNCNDtcbiR3aGl0ZTogI2ZmZjtcbiRibGFjazogIzExMTtcbiJdfQ== */");
 
 /***/ }),
 
@@ -1364,31 +1364,32 @@ var __importDefault = (undefined && undefined.__importDefault) || function (mod)
 var ELEMENT_DATA = [];
 var PlayCardsCounterComponent = /** @class */ (function () {
     function PlayCardsCounterComponent() {
-        this.players = ELEMENT_DATA.map(function (element) { return element.name; });
-        this.dataSource = ELEMENT_DATA;
+        this.playerName = '';
+        this.players = [];
         this.scoreInputs = {};
     }
-    PlayCardsCounterComponent.prototype.ngOnInit = function () { };
+    PlayCardsCounterComponent.prototype.ngOnInit = function () {
+        this.totalHeaderArrowDown = true;
+        this._sortPlayers();
+    };
     PlayCardsCounterComponent.prototype.addPlayer = function () {
-        var _this = this;
-        if (this.playerName === '' || !!(this.dataSource.find(function (item) { return item.name.toLowerCase() === _this.playerName.toLowerCase(); }))) {
+        if (Object(src_app_shared_utils_utils_service__WEBPACK_IMPORTED_MODULE_1__["isNullOrUndefined"])(this.playerName) || Object(src_app_shared_utils_utils_service__WEBPACK_IMPORTED_MODULE_1__["isEmptyString"])(this.playerName) || this._playerExists()) {
             return;
         }
-        this.dataSource.push({
+        this.players.push({
             name: this.playerName,
             scores: []
         });
-        this.players = ELEMENT_DATA.map(function (element) { return element.name; });
         this.playerName = '';
         this.resetScores();
     };
     PlayCardsCounterComponent.prototype.addScore = function () {
         var _this = this;
-        if (Object.values(this.scoreInputs).every(function (value) { return Object(src_app_shared_utils_utils_service__WEBPACK_IMPORTED_MODULE_1__["isNullOrUndefined"])(value) || value === 0; })) {
+        if (this._areScoresZeroOrNotDefined() || !this._arePlayersAndScoresEqual()) {
             return;
         }
         Object.keys(this.scoreInputs).forEach(function (playerName) {
-            var playerDetails = _this.dataSource.find(function (item) { return item.name === playerName; });
+            var playerDetails = _this.players.find(function (item) { return item.name === playerName; });
             var playerScore = _this.scoreInputs[playerName];
             if (!playerDetails || Object(src_app_shared_utils_utils_service__WEBPACK_IMPORTED_MODULE_1__["isNullOrUndefined"])(playerScore)) {
                 return;
@@ -1396,19 +1397,60 @@ var PlayCardsCounterComponent = /** @class */ (function () {
             playerDetails.scores.push(playerScore);
             _this.scoreInputs[playerName] = 0;
         });
+        this._sortPlayers();
     };
     PlayCardsCounterComponent.prototype.getPlayerScores = function (player) {
-        return player.scores.join(', ') + ' = ' + player.scores.reduce(function (a, b) { return a + b; }, 0);
+        return player.scores.join(', ') || '-';
+    };
+    PlayCardsCounterComponent.prototype.getPlayerTotalScore = function (player) {
+        var total = this._getTotalCount(player);
+        return Object(src_app_shared_utils_utils_service__WEBPACK_IMPORTED_MODULE_1__["isNullOrUndefined"])(this._getTotalCount(player)) ? '-' : total;
+    };
+    PlayCardsCounterComponent.prototype.isRankOnePlayer = function (player, rank) {
+        return Object.keys(this.players).length > 2 && player.scores.length > 0 && rank === 0;
+    };
+    PlayCardsCounterComponent.prototype.onTotalHeaderClick = function () {
+        this.totalHeaderArrowDown = !this.totalHeaderArrowDown;
+        this._sortPlayers(this.totalHeaderArrowDown);
     };
     PlayCardsCounterComponent.prototype.resetScores = function () {
-        this.dataSource.forEach(function (player) {
+        this.players.forEach(function (player) {
             player.scores = [];
         });
     };
     PlayCardsCounterComponent.prototype.resetPlayers = function () {
-        this.dataSource = [];
+        this.players = [];
     };
-    PlayCardsCounterComponent.prototype.removeColumn = function () { };
+    PlayCardsCounterComponent.prototype.removePlayer = function (_a) {
+        var name = _a.name;
+        this.players = this.players.filter(function (player) { return player.name !== name; });
+    };
+    PlayCardsCounterComponent.prototype._areScoresZeroOrNotDefined = function () {
+        return Object.values(this.scoreInputs).every(function (value) { return Object(src_app_shared_utils_utils_service__WEBPACK_IMPORTED_MODULE_1__["isNullOrUndefined"])(value) || value === 0; });
+    };
+    PlayCardsCounterComponent.prototype._playerExists = function () {
+        var _this = this;
+        return !!(this.players.find(function (item) { return item.name.toLowerCase() === _this.playerName.toLowerCase(); }));
+    };
+    PlayCardsCounterComponent.prototype._sortPlayers = function (ascOrder) {
+        var _this = this;
+        if (ascOrder === void 0) { ascOrder = true; }
+        this.players.sort(function (p1, p2) {
+            if (_this._getTotalCount(p1) < _this._getTotalCount(p2)) {
+                return ascOrder ? -1 : 1;
+            }
+            if (_this._getTotalCount(p1) > _this._getTotalCount(p2)) {
+                return ascOrder ? 1 : -1;
+            }
+            return 0;
+        });
+    };
+    PlayCardsCounterComponent.prototype._getTotalCount = function (player) {
+        return player.scores.reduce(function (a, b) { return a + b; }, 0);
+    };
+    PlayCardsCounterComponent.prototype._arePlayersAndScoresEqual = function () {
+        return Object.keys(this.scoreInputs).length === Object.keys(this.players).length;
+    };
     PlayCardsCounterComponent.ctorParameters = function () { return []; };
     PlayCardsCounterComponent = __decorate([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({
