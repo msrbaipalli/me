@@ -165,7 +165,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = ("<div class=\"main-container\">\n    <div class=\"input-group\">\n        <input (keyup.enter)=\"addPlayer()\" type=\"text\" class=\"form-control\" placeholder=\"Enter Player Name!\"\n            [(ngModel)]=\"playerName\">\n        <button class=\"add-button\" color=\"primary\" mat-raised-button (click)=\"addPlayer()\"> Add Player </button>\n    </div>\n\n    <div *ngIf=\"players.length > 0\">\n        <div class=\"action-buttons\">\n\n            <button color=\"warn\" mat-raised-button (click)=\"resetScores()\"> Reset Scores </button>\n            <button class=\"reset-players\" color=\"warn\" mat-raised-button (click)=\"resetPlayers()\"> Reset Players\n            </button>\n        </div>\n        <table class=\"table\">\n            <thead>\n                <tr>\n                    <th>Player</th>\n                    <th (click)=\"onTotalHeaderClick()\">Score\n                        <i class=\"fa\"\n                            [ngClass]=\"{'fa-angle-down': totalHeaderArrowDown, 'fa-angle-up': !totalHeaderArrowDown}\"></i>\n                    </th>\n                    <th></th>\n                    <th></th>\n                </tr>\n            </thead>\n            <tbody>\n                <tr *ngFor=\"let player of players; index as playerIndex\">\n                    <td class=\"player-name\"> {{ player.name }} </td>\n                    <td class=\"player-total-score\">\n                        <button mat-stroked-button color=\"primary\"\n                            (click)=\"openScoresDialog(player)\">{{ getPlayerTotalScore(player) }}</button>\n                    </td>\n                    <td class=\"player-score-input\">\n                        <div class=\"input-group\">\n                            <input type=\"number\" class=\"form-control\" [(ngModel)]=\"scoreInputs[player.name]\"\n                                placeholder=\"Enter Score!\">\n                        </div>\n                    </td>\n                    <td>\n                        <button mat-mini-fab color=\"warn\" (click)=\"removePlayer(player)\">\n                            <i class=\"fa fa-minus-circle\" aria-hidden=\"true\"></i>\n                        </button>\n                    </td>\n                </tr>\n            </tbody>\n        </table>\n    </div>\n</div>\n<div class=\"footer\">\n    <button color=\"primary\" class=\"add-score-btn\" mat-raised-button (click)=\"addScore()\">\n        Add Score\n    </button>\n</div>");
+/* harmony default export */ __webpack_exports__["default"] = ("<div class=\"main-container\">\n    <div class=\"input-group\">\n        <input (keyup.enter)=\"addPlayer()\" type=\"text\" class=\"form-control\" placeholder=\"Enter Player Name!\"\n            [(ngModel)]=\"playerName\">\n        <button class=\"add-button\" color=\"primary\" mat-raised-button (click)=\"addPlayer()\"> Add Player </button>\n    </div>\n\n    <div *ngIf=\"players.length > 0\">\n        <div class=\"action-buttons\">\n\n            <button color=\"warn\" mat-raised-button (click)=\"resetScores()\"> Reset Scores </button>\n            <button class=\"reset-players\" color=\"warn\" mat-raised-button (click)=\"resetPlayers()\"> Reset Players\n            </button>\n        </div>\n        <table class=\"table\">\n            <thead>\n                <tr>\n                    <th>Player</th>\n                    <th (click)=\"onTotalHeaderClick()\">Score\n                        <i class=\"fa\"\n                            [ngClass]=\"{'fa-angle-down': totalHeaderArrowDown, 'fa-angle-up': !totalHeaderArrowDown}\"></i>\n                    </th>\n                    <th></th>\n                    <th></th>\n                </tr>\n            </thead>\n            <tbody>\n                <tr *ngFor=\"let player of players; index as playerIndex\">\n                    <td class=\"player-name\"> {{ player.name }} </td>\n                    <td class=\"player-total-score\">\n                        <button mat-stroked-button color=\"primary\"\n                            (click)=\"openScoresDialog(player)\">{{ getPlayerTotalScore(player) }}</button>\n                    </td>\n                    <td class=\"player-score-input\">\n                        <div class=\"input-group\">\n                            <input type=\"number\" class=\"form-control\" [(ngModel)]=\"scoreInputs[player.name]\"\n                                placeholder=\"Enter Score!\">\n                        </div>\n                    </td>\n                    <td>\n                        <button mat-mini-fab color=\"warn\" (click)=\"removePlayer(player)\">\n                            <i class=\"fa fa-minus-circle\" aria-hidden=\"true\"></i>\n                        </button>\n                    </td>\n                </tr>\n            </tbody>\n        </table>\n    </div>\n</div>\n<div class=\"footer\">\n    <button *ngIf=\"players.length > 0\" color=\"primary\" class=\"add-score-btn\" mat-raised-button (click)=\"addScore()\">\n        Add Score\n    </button>\n</div>");
 
 /***/ }),
 
@@ -1362,6 +1362,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_material_dialog__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/material/dialog */ "./node_modules/@angular/material/__ivy_ngcc__/fesm2015/dialog.js");
 /* harmony import */ var src_app_shared_utils_utils_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! src/app/shared/utils/utils.service */ "./src/app/shared/utils/utils.service.ts");
 /* harmony import */ var _scores_dialog_scores_dialog_component__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./scores-dialog/scores-dialog.component */ "./src/app/projects/play-cards-counter/scores-dialog/scores-dialog.component.ts");
+/* harmony import */ var ngx_webstorage_service__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ngx-webstorage-service */ "./node_modules/ngx-webstorage-service/__ivy_ngcc__/fesm2015/ngx-webstorage-service.js");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -1378,26 +1379,20 @@ var __importDefault = (undefined && undefined.__importDefault) || function (mod)
 
 
 
+
 var ELEMENT_DATA = [];
 var PlayCardsCounterComponent = /** @class */ (function () {
-    function PlayCardsCounterComponent(_dialog) {
+    function PlayCardsCounterComponent(storage, _dialog) {
+        this.storage = storage;
         this._dialog = _dialog;
         this.playerName = '';
         this.players = [];
         this.scoreInputs = {};
         this.totalHeaderArrowDown = true;
+        this.STORAGE_KEY = 'msrb_counter_app_players';
     }
     PlayCardsCounterComponent.prototype.ngOnInit = function () {
-        this.players = [
-            {
-                name: 'Chandu',
-                scores: [23, 4, 0, 24]
-            },
-            {
-                name: 'Madhu',
-                scores: [5, 0, 40, 50]
-            }
-        ];
+        this.players = this._getDataFromLocalStorage();
         this._sortPlayers();
     };
     PlayCardsCounterComponent.prototype.addPlayer = function () {
@@ -1410,6 +1405,7 @@ var PlayCardsCounterComponent = /** @class */ (function () {
         });
         this.playerName = '';
         this.resetScores();
+        this._storeOnLocalStorage();
     };
     PlayCardsCounterComponent.prototype.addScore = function () {
         var _this = this;
@@ -1426,6 +1422,7 @@ var PlayCardsCounterComponent = /** @class */ (function () {
             _this.scoreInputs[playerName] = 0;
         });
         this._sortPlayers();
+        this._storeOnLocalStorage();
     };
     PlayCardsCounterComponent.prototype.hasScores = function (player) {
         return player.scores.length > 0;
@@ -1434,12 +1431,10 @@ var PlayCardsCounterComponent = /** @class */ (function () {
         var total = this._getTotalCount(player);
         return Object(src_app_shared_utils_utils_service__WEBPACK_IMPORTED_MODULE_2__["isNullOrUndefined"])(this._getTotalCount(player)) ? '-' : total;
     };
-    PlayCardsCounterComponent.prototype.isRankOnePlayer = function (player, rank) {
-        return Object.keys(this.players).length > 2 && player.scores.length > 0 && rank === 0;
-    };
     PlayCardsCounterComponent.prototype.onTotalHeaderClick = function () {
         this.totalHeaderArrowDown = !this.totalHeaderArrowDown;
         this._sortPlayers(this.totalHeaderArrowDown);
+        this._storeOnLocalStorage();
     };
     PlayCardsCounterComponent.prototype.openScoresDialog = function (player) {
         this._dialog.open(_scores_dialog_scores_dialog_component__WEBPACK_IMPORTED_MODULE_3__["ScoresDialogComponent"], {
@@ -1453,9 +1448,11 @@ var PlayCardsCounterComponent = /** @class */ (function () {
         this.players.forEach(function (player) {
             player.scores = [];
         });
+        this._storeOnLocalStorage();
     };
     PlayCardsCounterComponent.prototype.resetPlayers = function () {
         this.players = [];
+        this._storeOnLocalStorage();
     };
     PlayCardsCounterComponent.prototype.removePlayer = function (_a) {
         var _this = this;
@@ -1468,8 +1465,8 @@ var PlayCardsCounterComponent = /** @class */ (function () {
             result[player] = _this.scoreInputs[player];
             return result;
         }, {});
-        // Sort it
         this._sortPlayers(this.totalHeaderArrowDown);
+        this._storeOnLocalStorage();
     };
     PlayCardsCounterComponent.prototype._areScoresZeroOrNotDefined = function () {
         return Object.values(this.scoreInputs).every(function (value) { return Object(src_app_shared_utils_utils_service__WEBPACK_IMPORTED_MODULE_2__["isNullOrUndefined"])(value) || value === 0; });
@@ -1497,7 +1494,14 @@ var PlayCardsCounterComponent = /** @class */ (function () {
     PlayCardsCounterComponent.prototype._arePlayersAndScoresEqual = function () {
         return Object.keys(this.scoreInputs).length === Object.keys(this.players).length;
     };
+    PlayCardsCounterComponent.prototype._storeOnLocalStorage = function () {
+        this.storage.set(this.STORAGE_KEY, this.players);
+    };
+    PlayCardsCounterComponent.prototype._getDataFromLocalStorage = function () {
+        return this.storage.get(this.STORAGE_KEY) || [];
+    };
     PlayCardsCounterComponent.ctorParameters = function () { return [
+        { type: undefined, decorators: [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Inject"], args: [ngx_webstorage_service__WEBPACK_IMPORTED_MODULE_4__["LOCAL_STORAGE"],] }] },
         { type: _angular_material_dialog__WEBPACK_IMPORTED_MODULE_1__["MatDialog"] }
     ]; };
     PlayCardsCounterComponent = __decorate([
@@ -1506,7 +1510,7 @@ var PlayCardsCounterComponent = /** @class */ (function () {
             template: __importDefault(__webpack_require__(/*! raw-loader!./play-cards-counter.component.html */ "./node_modules/raw-loader/dist/cjs.js!./src/app/projects/play-cards-counter/play-cards-counter.component.html")).default,
             styles: [__importDefault(__webpack_require__(/*! ./play-cards-counter.component.scss */ "./src/app/projects/play-cards-counter/play-cards-counter.component.scss")).default]
         }),
-        __metadata("design:paramtypes", [_angular_material_dialog__WEBPACK_IMPORTED_MODULE_1__["MatDialog"]])
+        __metadata("design:paramtypes", [Object, _angular_material_dialog__WEBPACK_IMPORTED_MODULE_1__["MatDialog"]])
     ], PlayCardsCounterComponent);
     return PlayCardsCounterComponent;
 }());
