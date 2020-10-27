@@ -165,7 +165,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = ("<h1 mat-dialog-title></h1>\n\n<div mat-dialog-content>\n    <mat-form-field class=\"example-full-width\">\n        <mat-label>Edit player name!</mat-label>\n        <input matInput [(ngModel)]=\"playerName\">\n    </mat-form-field>\n</div>\n\n<div mat-dialog-actions>\n    <button mat-flat-button color=\"primary\" [mat-dialog-close]=\"player\" cdkFocusInitial>Cancel</button>\n    <button (click)=\"onSubmit()\" [disabled]=\"isSubmitDisabled()\" mat-flat-button color=\"primary\"\n        [mat-dialog-close]=\"player\" cdkFocusInitial>Submit</button>\n</div>");
+/* harmony default export */ __webpack_exports__["default"] = ("<h1 mat-dialog-title></h1>\n\n<div mat-dialog-content>\n    <mat-form-field class=\"example-full-width\">\n        <mat-label>Edit player name!</mat-label>\n        <input matInput [(ngModel)]=\"playerName\">\n    </mat-form-field>\n</div>\n\n<div mat-dialog-actions>\n    <button mat-flat-button color=\"primary\" [mat-dialog-close]=\"player\" cdkFocusInitial>CANCEL</button>\n    <button (click)=\"onSubmit()\" [disabled]=\"isSubmitDisabled()\" mat-flat-button color=\"primary\"\n        [mat-dialog-close]=\"player\" cdkFocusInitial>SUBMIT</button>\n</div>");
 
 /***/ }),
 
@@ -191,7 +191,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = ("<h1 mat-dialog-title>{{ player.name + ' Scores!' }}</h1>\n\n<div mat-dialog-content>\n    <mat-list role=\"list\">\n        <mat-list-item role=\"listitem\" *ngFor=\"let score of player.scores; index as scoreIndex\">\n            {{ (scoreIndex + 1) + '. ' + score}}\n        </mat-list-item>\n        <mat-list-item role=\"listitem\">\n            <div>Total Score: <b>{{ data.totalScore }}</b></div>\n        </mat-list-item>\n    </mat-list>\n</div>\n\n<div mat-dialog-actions>\n    <button mat-flat-button color=\"primary\" [mat-dialog-close]=\"player\" cdkFocusInitial>Close</button>\n</div>");
+/* harmony default export */ __webpack_exports__["default"] = ("<h1 mat-dialog-title>{{ player.name + ' scores!' }}</h1>\n\n<div mat-dialog-content>\n    <mat-list role=\"list\">\n        <mat-list-item role=\"listitem\" *ngFor=\"let score of player.scores; index as scoreIndex\">\n            {{ (scoreIndex + 1) + '. ' + score}}\n        </mat-list-item>\n        <mat-list-item role=\"listitem\">\n            <div>Total Score: <b>{{ data.totalScore }}</b></div>\n        </mat-list-item>\n    </mat-list>\n</div>\n\n<div mat-dialog-actions>\n    <button mat-flat-button color=\"primary\" [mat-dialog-close]=\"player\" cdkFocusInitial>CLOSE</button>\n</div>");
 
 /***/ }),
 
@@ -243,7 +243,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = ("<h1 mat-dialog-title>{{ data.title }}</h1>\n<div mat-dialog-content [innerHTML]=\"data.message\"></div>\n<div mat-dialog-actions>\n    <button *ngIf=\"!!this.data.confirmCallback\" mat-flat-button color=\"primary\" [mat-dialog-close]=\"player\"\n        cdkFocusInitial>Cancel</button>\n    <button mat-flat-button color=\"primary\" [mat-dialog-close]=\"player\" (click)=\"onConfirmClick()\"\n        cdkFocusInitial>Ok</button>\n</div>");
+/* harmony default export */ __webpack_exports__["default"] = ("<h1 mat-dialog-title>{{ data.title }}</h1>\n<div mat-dialog-content [innerHTML]=\"data.message\"></div>\n<div mat-dialog-actions>\n    <button *ngIf=\"!!this.data.confirmCallback\" mat-flat-button color=\"primary\" [mat-dialog-close]=\"player\"\n        cdkFocusInitial>CANCEL</button>\n    <button mat-flat-button color=\"primary\" [mat-dialog-close]=\"player\" (click)=\"onConfirmClick()\" cdkFocusInitial>\n        {{ this.data.confirmCallback ? 'CONFIRM' : 'OK' }}</button>\n</div>");
 
 /***/ }),
 
@@ -1525,7 +1525,7 @@ var PlayCardsCounterComponent = /** @class */ (function () {
     };
     PlayCardsCounterComponent.prototype.addScore = function () {
         var _this = this;
-        if (this._areScoresZeroOrNotDefined() || !this._arePlayersAndScoresEqual()) {
+        if (!this._areScoresValid() || !this._arePlayersAndScoresEqual()) {
             this._dialog.open(src_app_shared_dialog_dialog_component__WEBPACK_IMPORTED_MODULE_5__["DialogComponent"], {
                 data: {
                     title: _play_cards_counter_constants__WEBPACK_IMPORTED_MODULE_6__["ERROR"],
@@ -1534,17 +1534,17 @@ var PlayCardsCounterComponent = /** @class */ (function () {
             });
             return;
         }
-        Object.keys(this.scoreInputs).forEach(function (playerName) {
-            var playerDetails = _this.players.find(function (item) { return item.name === playerName; });
-            var playerScore = _this.scoreInputs[playerName];
-            if (!playerDetails || Object(src_app_shared_utils_utils_service__WEBPACK_IMPORTED_MODULE_2__["isNullOrUndefined"])(playerScore)) {
-                return;
+        if (!(Object.values(this.scoreInputs).every(function (value) { return value === 0; }))) {
+            this._addScoresHandler();
+            return;
+        }
+        this._dialog.open(src_app_shared_dialog_dialog_component__WEBPACK_IMPORTED_MODULE_5__["DialogComponent"], {
+            data: {
+                title: _play_cards_counter_constants__WEBPACK_IMPORTED_MODULE_6__["ARE_YOU_SURE"],
+                message: 'Do you want to add 0 score to all the players?',
+                confirmCallback: function () { _this._addScoresHandler(); }
             }
-            playerDetails.scores.push(playerScore);
-            _this.scoreInputs[playerName] = 0;
         });
-        this._sortPlayers();
-        this._storeOnLocalStorage();
     };
     PlayCardsCounterComponent.prototype.hasScores = function (player) {
         return player.scores.length > 0;
@@ -1581,14 +1581,14 @@ var PlayCardsCounterComponent = /** @class */ (function () {
         var _this = this;
         if (showDialog === void 0) { showDialog = true; }
         if (!showDialog) {
-            this._resetScores();
+            this._resetScoresHandler();
             return;
         }
         this._dialog.open(src_app_shared_dialog_dialog_component__WEBPACK_IMPORTED_MODULE_5__["DialogComponent"], {
             data: {
                 title: _play_cards_counter_constants__WEBPACK_IMPORTED_MODULE_6__["ARE_YOU_SURE"],
                 message: 'This action will reset scores for all the players!',
-                confirmCallback: function () { _this._resetScores(); }
+                confirmCallback: function () { _this._resetScoresHandler(); }
             }
         });
     };
@@ -1598,7 +1598,7 @@ var PlayCardsCounterComponent = /** @class */ (function () {
             data: {
                 title: _play_cards_counter_constants__WEBPACK_IMPORTED_MODULE_6__["ARE_YOU_SURE"],
                 message: 'This action will reset all the players!',
-                confirmCallback: function () { _this._resetPlayers(); }
+                confirmCallback: function () { _this._resetPlayersHandler(); }
             }
         });
     };
@@ -1609,12 +1609,12 @@ var PlayCardsCounterComponent = /** @class */ (function () {
             data: {
                 title: _play_cards_counter_constants__WEBPACK_IMPORTED_MODULE_6__["ARE_YOU_SURE"],
                 message: "This action will remove <b>" + name + "</b> player!",
-                confirmCallback: function () { _this._removePlayer(name); }
+                confirmCallback: function () { _this._removePlayerHandler(name); }
             }
         });
     };
-    PlayCardsCounterComponent.prototype._areScoresZeroOrNotDefined = function () {
-        return Object.values(this.scoreInputs).every(function (value) { return Object(src_app_shared_utils_utils_service__WEBPACK_IMPORTED_MODULE_2__["isNullOrUndefined"])(value) || value === 0; });
+    PlayCardsCounterComponent.prototype._areScoresValid = function () {
+        return !Object.values(this.scoreInputs).some(function (value) { return Object(src_app_shared_utils_utils_service__WEBPACK_IMPORTED_MODULE_2__["isNullOrUndefined"])(value) || isNaN(value); });
     };
     PlayCardsCounterComponent.prototype._playerExists = function () {
         var _this = this;
@@ -1645,17 +1645,17 @@ var PlayCardsCounterComponent = /** @class */ (function () {
     PlayCardsCounterComponent.prototype._getDataFromLocalStorage = function () {
         return this.storage.get(this.STORAGE_KEY) || [];
     };
-    PlayCardsCounterComponent.prototype._resetPlayers = function () {
+    PlayCardsCounterComponent.prototype._resetPlayersHandler = function () {
         this.players = [];
         this._storeOnLocalStorage();
     };
-    PlayCardsCounterComponent.prototype._resetScores = function () {
+    PlayCardsCounterComponent.prototype._resetScoresHandler = function () {
         this.players.forEach(function (player) {
             player.scores = [];
         });
         this._storeOnLocalStorage();
     };
-    PlayCardsCounterComponent.prototype._removePlayer = function (name) {
+    PlayCardsCounterComponent.prototype._removePlayerHandler = function (name) {
         var _this = this;
         this.players = this.players.filter(function (player) { return player.name !== name; });
         this.scoreInputs = Object.keys(this.scoreInputs).reduce(function (result, player) {
@@ -1665,6 +1665,20 @@ var PlayCardsCounterComponent = /** @class */ (function () {
             result[player] = _this.scoreInputs[player];
             return result;
         }, {});
+        this._sortPlayers(this.totalHeaderArrowDown);
+        this._storeOnLocalStorage();
+    };
+    PlayCardsCounterComponent.prototype._addScoresHandler = function () {
+        var _this = this;
+        Object.keys(this.scoreInputs).forEach(function (playerName) {
+            var playerDetails = _this.players.find(function (item) { return item.name === playerName; });
+            var playerScore = _this.scoreInputs[playerName];
+            if (!playerDetails || Object(src_app_shared_utils_utils_service__WEBPACK_IMPORTED_MODULE_2__["isNullOrUndefined"])(playerScore)) {
+                return;
+            }
+            playerDetails.scores.push(playerScore);
+            _this.scoreInputs[playerName] = 0;
+        });
         this._sortPlayers(this.totalHeaderArrowDown);
         this._storeOnLocalStorage();
     };
