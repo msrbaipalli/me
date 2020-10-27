@@ -1370,7 +1370,7 @@ var WORK_EXPERIENCE_LIST = [
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = (":host .mat-dialog-actions {\n  margin: 0px;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbImVkaXQtcGxheWVyLWRpYWxvZy9lZGl0LXBsYXllci1kaWFsb2cuY29tcG9uZW50LnNjc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQ0k7RUFDSSxXQUFBO0FBQVIiLCJmaWxlIjoiZWRpdC1wbGF5ZXItZGlhbG9nL2VkaXQtcGxheWVyLWRpYWxvZy5jb21wb25lbnQuc2NzcyIsInNvdXJjZXNDb250ZW50IjpbIjpob3N0IHtcbiAgICAubWF0LWRpYWxvZy1hY3Rpb25zIHtcbiAgICAgICAgbWFyZ2luOiAwcHg7XG4gICAgfVxufSJdfQ== */");
+/* harmony default export */ __webpack_exports__["default"] = (":host .mat-dialog-content mat-form-field input {\n  text-transform: capitalize;\n}\n:host .mat-dialog-actions {\n  margin: 0px;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbImVkaXQtcGxheWVyLWRpYWxvZy9lZGl0LXBsYXllci1kaWFsb2cuY29tcG9uZW50LnNjc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBRVE7RUFDSSwwQkFBQTtBQURaO0FBS0k7RUFDSSxXQUFBO0FBSFIiLCJmaWxlIjoiZWRpdC1wbGF5ZXItZGlhbG9nL2VkaXQtcGxheWVyLWRpYWxvZy5jb21wb25lbnQuc2NzcyIsInNvdXJjZXNDb250ZW50IjpbIjpob3N0IHtcbiAgICAubWF0LWRpYWxvZy1jb250ZW50IHtcbiAgICAgICAgbWF0LWZvcm0tZmllbGQgaW5wdXQge1xuICAgICAgICAgICAgdGV4dC10cmFuc2Zvcm06IGNhcGl0YWxpemU7XG4gICAgICAgIH1cbiAgICB9XG5cbiAgICAubWF0LWRpYWxvZy1hY3Rpb25zIHtcbiAgICAgICAgbWFyZ2luOiAwcHg7XG4gICAgfVxufSJdfQ== */");
 
 /***/ }),
 
@@ -1608,7 +1608,7 @@ var PlayCardsCounterComponent = /** @class */ (function () {
         this._dialog.open(src_app_shared_dialog_dialog_component__WEBPACK_IMPORTED_MODULE_5__["DialogComponent"], {
             data: {
                 title: _play_cards_counter_constants__WEBPACK_IMPORTED_MODULE_6__["ARE_YOU_SURE"],
-                message: "This action will remove <b>" + name + "</b> player!",
+                message: "This action will remove player <b>" + name + "</b>!",
                 confirmCallback: function () { _this._removePlayerHandler(name); }
             }
         });
