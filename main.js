@@ -1408,12 +1408,16 @@ var EditPlayerDialogComponent = /** @class */ (function () {
     }
     EditPlayerDialogComponent.prototype.ngOnInit = function () {
         this.playerName = this.data.player.name;
+        this.players = this.data.players;
     };
     EditPlayerDialogComponent.prototype.onSubmit = function () {
         this.data.player.name = this.playerName;
     };
     EditPlayerDialogComponent.prototype.isSubmitDisabled = function () {
-        return Object(src_app_shared_utils_utils_service__WEBPACK_IMPORTED_MODULE_2__["isNullOrUndefined"])(this.playerName) || Object(src_app_shared_utils_utils_service__WEBPACK_IMPORTED_MODULE_2__["isEmptyString"])(this.playerName);
+        var _this = this;
+        return Object(src_app_shared_utils_utils_service__WEBPACK_IMPORTED_MODULE_2__["isNullOrUndefined"])(this.playerName) ||
+            Object(src_app_shared_utils_utils_service__WEBPACK_IMPORTED_MODULE_2__["isEmptyString"])(this.playerName) ||
+            !!(this.players && this.players.find(function (player) { return player.name.toLowerCase() === _this.playerName.toLowerCase(); }));
     };
     EditPlayerDialogComponent.ctorParameters = function () { return [
         { type: undefined, decorators: [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Inject"], args: [_angular_material_dialog__WEBPACK_IMPORTED_MODULE_1__["MAT_DIALOG_DATA"],] }] }
@@ -1559,6 +1563,7 @@ var PlayCardsCounterComponent = /** @class */ (function () {
         var dialogRef = this._dialog.open(_edit_player_dialog_edit_player_dialog_component__WEBPACK_IMPORTED_MODULE_7__["EditPlayerDialogComponent"], {
             data: {
                 player: player,
+                players: this.players,
                 totalScore: this._getTotalCount(player)
             }
         });
