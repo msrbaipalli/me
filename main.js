@@ -165,7 +165,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = ("<div class=\"main-container\">\n    <div class=\"input-group\">\n        <input (keyup.enter)=\"addPlayer()\" type=\"text\" class=\"form-control\" placeholder=\"Enter Player Name!\"\n            [(ngModel)]=\"playerName\">\n        <button class=\"add-button\" color=\"primary\" mat-raised-button (click)=\"addPlayer()\"> Add Player </button>\n    </div>\n\n    <div *ngIf=\"players.length > 0\">\n        <div class=\"action-buttons\">\n\n            <button color=\"warn\" mat-raised-button (click)=\"resetScores()\"> Reset Scores </button>\n            <button class=\"reset-players\" color=\"warn\" mat-raised-button (click)=\"resetPlayers()\"> Reset Players\n            </button>\n        </div>\n        <table class=\"table\">\n            <thead>\n                <tr>\n                    <th>Player</th>\n                    <th (click)=\"onTotalHeaderClick()\">Total\n                        <i class=\"fa\"\n                            [ngClass]=\"{'fa-angle-down': totalHeaderArrowDown, 'fa-angle-up': !totalHeaderArrowDown}\"></i>\n                    </th>\n                    <th></th>\n                    <th></th>\n                    <th></th>\n                </tr>\n            </thead>\n            <tbody>\n                <tr *ngFor=\"let player of players; index as playerIndex\">\n                    <td class=\"player-name\"> {{ player.name }} </td>\n                    <td class=\"player-total-score\">\n                        <button mat-stroked-button color=\"primary\">{{ getPlayerTotalScore(player) }}</button>\n                    </td>\n                    <td class=\"player-score-input\">\n                        <div class=\"input-group\">\n                            <input type=\"number\" class=\"form-control\" [(ngModel)]=\"scoreInputs[player.name]\"\n                                placeholder=\"Enter Score!\">\n                        </div>\n                    </td>\n                    <td class=\"player-score\">\n                        <button mat-raised-button *ngIf=\"hasScores(player)\" color=\"primary\"\n                            (click)=\"openScoresDialog(player)\">\n                            Scores\n                        </button>\n                    </td>\n                    <td>\n                        <button mat-mini-fab color=\"warn\" (click)=\"removePlayer(player)\">\n                            <i class=\"fa fa-minus-circle\" aria-hidden=\"true\"></i>\n                        </button>\n                    </td>\n                </tr>\n            </tbody>\n        </table>\n    </div>\n</div>\n<div class=\"footer\">\n    <button color=\"primary\" class=\"add-score-btn\" mat-raised-button (click)=\"addScore()\">\n        Add Score\n    </button>\n</div>");
+/* harmony default export */ __webpack_exports__["default"] = ("<div class=\"main-container\">\n    <div class=\"input-group\">\n        <input (keyup.enter)=\"addPlayer()\" type=\"text\" class=\"form-control\" placeholder=\"Enter Player Name!\"\n            [(ngModel)]=\"playerName\">\n        <button class=\"add-button\" color=\"primary\" mat-raised-button (click)=\"addPlayer()\"> Add Player </button>\n    </div>\n\n    <div *ngIf=\"players.length > 0\">\n        <div class=\"action-buttons\">\n\n            <button color=\"warn\" mat-raised-button (click)=\"resetScores()\"> Reset Scores </button>\n            <button class=\"reset-players\" color=\"warn\" mat-raised-button (click)=\"resetPlayers()\"> Reset Players\n            </button>\n        </div>\n        <table class=\"table\">\n            <thead>\n                <tr>\n                    <th>Player</th>\n                    <th (click)=\"onTotalHeaderClick()\">Score\n                        <i class=\"fa\"\n                            [ngClass]=\"{'fa-angle-down': totalHeaderArrowDown, 'fa-angle-up': !totalHeaderArrowDown}\"></i>\n                    </th>\n                    <th></th>\n                    <th></th>\n                </tr>\n            </thead>\n            <tbody>\n                <tr *ngFor=\"let player of players; index as playerIndex\">\n                    <td class=\"player-name\"> {{ player.name }} </td>\n                    <td class=\"player-total-score\">\n                        <button mat-stroked-button color=\"primary\"\n                            (click)=\"openScoresDialog(player)\">{{ getPlayerTotalScore(player) }}</button>\n                    </td>\n                    <td class=\"player-score-input\">\n                        <div class=\"input-group\">\n                            <input type=\"number\" class=\"form-control\" [(ngModel)]=\"scoreInputs[player.name]\"\n                                placeholder=\"Enter Score!\">\n                        </div>\n                    </td>\n                    <td>\n                        <button mat-mini-fab color=\"warn\" (click)=\"removePlayer(player)\">\n                            <i class=\"fa fa-minus-circle\" aria-hidden=\"true\"></i>\n                        </button>\n                    </td>\n                </tr>\n            </tbody>\n        </table>\n    </div>\n</div>\n<div class=\"footer\">\n    <button color=\"primary\" class=\"add-score-btn\" mat-raised-button (click)=\"addScore()\">\n        Add Score\n    </button>\n</div>");
 
 /***/ }),
 
@@ -178,7 +178,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = ("<h1 mat-dialog-title>{{ player.name + ' Scores!' }}</h1>\n\n<div mat-dialog-content>\n    <mat-list role=\"list\">\n        <mat-list-item role=\"listitem\" *ngFor=\"let score of player.scores; index as scoreIndex\">\n            {{ (scoreIndex + 1) + '. ' + score}}\n        </mat-list-item>\n    </mat-list>\n</div>\n\n<div mat-dialog-actions>\n    <button mat-flat-button color=\"primary\" [mat-dialog-close]=\"player\" cdkFocusInitial>Close</button>\n</div>");
+/* harmony default export */ __webpack_exports__["default"] = ("<h1 mat-dialog-title>{{ player.name + ' Scores!' }}</h1>\n\n<div mat-dialog-content>\n    <mat-list role=\"list\">\n        <mat-list-item role=\"listitem\" *ngFor=\"let score of player.scores; index as scoreIndex\">\n            {{ (scoreIndex + 1) + '. ' + score}}\n        </mat-list-item>\n        <mat-list-item role=\"listitem\">\n            <div>Total Score: <b>{{ data.totalScore }}</b></div>\n        </mat-list-item>\n    </mat-list>\n</div>\n\n<div mat-dialog-actions>\n    <button mat-flat-button color=\"primary\" [mat-dialog-close]=\"player\" cdkFocusInitial>Close</button>\n</div>");
 
 /***/ }),
 
@@ -1444,7 +1444,8 @@ var PlayCardsCounterComponent = /** @class */ (function () {
     PlayCardsCounterComponent.prototype.openScoresDialog = function (player) {
         this._dialog.open(_scores_dialog_scores_dialog_component__WEBPACK_IMPORTED_MODULE_3__["ScoresDialogComponent"], {
             data: {
-                player: player
+                player: player,
+                totalScore: this._getTotalCount(player)
             }
         });
     };
@@ -1554,11 +1555,11 @@ var __importDefault = (undefined && undefined.__importDefault) || function (mod)
 
 
 var ScoresDialogComponent = /** @class */ (function () {
-    function ScoresDialogComponent(_data) {
-        this._data = _data;
+    function ScoresDialogComponent(data) {
+        this.data = data;
     }
     ScoresDialogComponent.prototype.ngOnInit = function () {
-        this.player = this._data.player;
+        this.player = this.data.player;
     };
     ScoresDialogComponent.ctorParameters = function () { return [
         { type: undefined, decorators: [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Inject"], args: [_angular_material_dialog__WEBPACK_IMPORTED_MODULE_1__["MAT_DIALOG_DATA"],] }] }
