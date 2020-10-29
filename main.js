@@ -1411,6 +1411,7 @@ var EditPlayerDialogComponent = /** @class */ (function () {
         this.players = this.data.players;
     };
     EditPlayerDialogComponent.prototype.onSubmit = function () {
+        delete this.data.scoreInputs[this.data.player.name];
         this.data.player.name = this.playerName;
     };
     EditPlayerDialogComponent.prototype.isSubmitDisabled = function () {
@@ -1564,6 +1565,7 @@ var PlayCardsCounterComponent = /** @class */ (function () {
             data: {
                 player: player,
                 players: this.players,
+                scoreInputs: this.scoreInputs,
                 totalScore: this._getTotalCount(player)
             }
         });
