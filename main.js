@@ -178,7 +178,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = ("<div class=\"main-container\">\n    <div class=\"input-group\">\n        <input (keyup.enter)=\"addPlayer()\" type=\"text\" class=\"form-control\" placeholder=\"Enter Player Name!\"\n            [(ngModel)]=\"playerName\">\n        <button class=\"add-button\" color=\"primary\" mat-raised-button (click)=\"addPlayer()\">\n            <i class=\"fa fa-plus\" aria-hidden=\"true\"></i>\n        </button>\n    </div>\n\n    <table class=\"table\">\n        <thead>\n            <tr>\n                <th>Player</th>\n                <th (click)=\"onTotalHeaderClick()\">Score\n                    <i class=\"fa\"\n                        [ngClass]=\"{'fa-angle-down': totalHeaderArrowDown, 'fa-angle-up': !totalHeaderArrowDown}\"></i>\n                </th>\n                <th>\n                </th>\n                <th>\n                </th>\n            </tr>\n        </thead>\n        <tbody>\n            <tr *ngFor=\"let player of players; index as playerIndex\">\n                <td class=\"player-name\">\n                    <button mat-stroked-button color=\"primary\"\n                        (click)=\"onPlayerClick(player)\">{{ player.name }}</button>\n                </td>\n                <td class=\"player-total-score\">\n                    <button mat-stroked-button color=\"primary\"\n                        (click)=\"openScoresDialog(player)\">{{ getPlayerTotalScore(player) }}</button>\n                </td>\n                <td class=\"player-score-input\">\n                    <div class=\"input-group\">\n                        <input type=\"number\" class=\"form-control\" [(ngModel)]=\"scoreInputs[player.name]\"\n                            placeholder=\"Enter Score!\">\n                    </div>\n                </td>\n                <td>\n                    <button mat-icon-button color=\"warn\" (click)=\"removePlayer(player)\">\n                        <i class=\"fa fa-minus-circle\" aria-hidden=\"true\"></i>\n                    </button>\n                </td>\n            </tr>\n        </tbody>\n    </table>\n</div>\n<div class=\"footer\">\n    <div class=\"action-buttons\">\n        <button [disabled]=\"players.length === 0\" color=\"warn\" mat-raised-button (click)=\"resetScores()\">\n            <i class=\"fa fa-refresh\" aria-hidden=\"true\"></i> Scores\n        </button>\n        <button [disabled]=\"players.length === 0\" color=\"primary\" class=\"add-score-btn\" mat-raised-button\n            (click)=\"addScore()\">\n            <i class=\"fa fa-plus\" aria-hidden=\"true\"></i> Score\n        </button>\n        <button [disabled]=\"players.length === 0\" class=\"reset-players\" color=\"warn\" mat-raised-button\n            (click)=\"resetPlayers()\"> <i class=\"fa fa-refresh\" aria-hidden=\"true\"></i> Players\n        </button>\n    </div>\n</div>");
+/* harmony default export */ __webpack_exports__["default"] = ("<div class=\"main-container\">\n    <div class=\"input-group\">\n        <input (keyup.enter)=\"addPlayer()\" type=\"text\" class=\"form-control\" placeholder=\"Enter Player Name!\"\n            [(ngModel)]=\"playerName\">\n        <button class=\"add-button\" color=\"primary\" mat-raised-button (click)=\"addPlayer()\">\n            <i class=\"fa fa-plus\" aria-hidden=\"true\"></i>\n        </button>\n    </div>\n\n    <table class=\"table\">\n        <thead>\n            <tr>\n                <th>Player</th>\n                <th (click)=\"onTotalHeaderClick()\">Score\n                    <i class=\"fa\"\n                        [ngClass]=\"{'fa-angle-down': totalHeaderArrowDown, 'fa-angle-up': !totalHeaderArrowDown}\"></i>\n                </th>\n                <th>\n                </th>\n                <th>\n                </th>\n            </tr>\n        </thead>\n        <tbody>\n            <tr *ngFor=\"let player of players; index as playerIndex\">\n                <td class=\"player-name\">\n                    <button mat-stroked-button color=\"primary\" [ngClass]=\"{'rankOnePlayer' : isRankOnePlayer(player)}\"\n                        (click)=\"onPlayerClick(player)\">{{ player.name }}</button>\n                </td>\n                <td class=\"player-total-score\">\n                    <button mat-stroked-button color=\"primary\"\n                        (click)=\"openScoresDialog(player)\">{{ getPlayerTotalScore(player) }}</button>\n                </td>\n                <td class=\"player-score-input\">\n                    <div class=\"input-group\">\n                        <input type=\"number\" class=\"form-control\" [(ngModel)]=\"scoreInputs[player.name]\"\n                            placeholder=\"Enter Score!\">\n                    </div>\n                </td>\n                <td>\n                    <button mat-icon-button color=\"warn\" (click)=\"removePlayer(player)\">\n                        <i class=\"fa fa-minus-circle\" aria-hidden=\"true\"></i>\n                    </button>\n                </td>\n            </tr>\n        </tbody>\n    </table>\n</div>\n<div class=\"footer\">\n    <div class=\"action-buttons\">\n        <button [disabled]=\"players.length === 0\" color=\"warn\" mat-raised-button (click)=\"resetScores()\">\n            <i class=\"fa fa-refresh\" aria-hidden=\"true\"></i> Scores\n        </button>\n        <button [disabled]=\"players.length === 0\" color=\"primary\" class=\"add-score-btn\" mat-raised-button\n            (click)=\"addScore()\">\n            <i class=\"fa fa-plus\" aria-hidden=\"true\"></i> Score\n        </button>\n        <button [disabled]=\"players.length === 0\" class=\"reset-players\" color=\"warn\" mat-raised-button\n            (click)=\"resetPlayers()\"> <i class=\"fa fa-refresh\" aria-hidden=\"true\"></i> Players\n        </button>\n    </div>\n\n    <button class=\"menu-mat-icon-button\" mat-icon-button [matMenuTriggerFor]=\"menu\"\n        aria-label=\"Example icon-button with a menu\">\n        <i class=\"fa fa-ellipsis-v\" aria-hidden=\"true\"></i>\n    </button>\n    <mat-menu #menu=\"matMenu\">\n        <div class=\"menu-item\">\n            <section>\n                <label>Score Rank Type: </label>\n                <mat-radio-group [(ngModel)]=\"scoreRankType\" (change)=\"onScoreRankTypeChange()\">\n                    <mat-radio-button value=\"low\">Low</mat-radio-button>\n                    <mat-radio-button value=\"high\">High</mat-radio-button>\n                </mat-radio-group>\n            </section>\n        </div>\n    </mat-menu>\n</div>");
 
 /***/ }),
 
@@ -1411,7 +1411,7 @@ var EditPlayerDialogComponent = /** @class */ (function () {
         this.players = this.data.players;
     };
     EditPlayerDialogComponent.prototype.onSubmit = function () {
-        delete this.data.scoreInputs[this.data.player.name];
+        delete this.data.scoreInputs[this.playerName];
         this.data.player.name = this.playerName;
     };
     EditPlayerDialogComponent.prototype.isSubmitDisabled = function () {
@@ -1447,7 +1447,7 @@ var EditPlayerDialogComponent = /** @class */ (function () {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = (":host {\n  font-size: 14px;\n}\n:host button {\n  font-size: 14px;\n}\n:host .add-button {\n  border-radius: 0 4px 4px 0;\n}\n:host table {\n  margin: 10px 0 80px 0;\n  width: 100%;\n  border: 1px solid #ECEFF1;\n}\n:host table td, :host table th {\n  padding: 10px;\n}\n:host table thead {\n  background: #ECEFF1;\n  color: #111;\n}\n:host table .player-score-input input {\n  min-width: 58px;\n}\n:host table .player-score button {\n  padding: 0 10px;\n}\n:host table .fa-minus-circle {\n  font-size: 18px;\n}\n:host .reset-score-btn {\n  float: left;\n  background: #b71c1c;\n}\n:host .player-name button {\n  text-transform: capitalize;\n}\n:host .footer {\n  position: fixed;\n  display: flex;\n  width: 100%;\n  height: 60px;\n  background: #ECEFF1;\n  bottom: 0;\n}\n:host .footer .action-buttons {\n  flex: 1;\n  display: flex;\n  justify-content: center;\n}\n:host .footer .action-buttons button {\n  height: 40px;\n  top: 10px;\n}\n:host .footer .action-buttons .add-score-btn {\n  margin: 0 10px;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInBsYXktY2FyZHMtY291bnRlci5jb21wb25lbnQuc2NzcyIsIi4uLy4uL3NoYXJlZC9zaGFyZWQuc2NzcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFFQTtFQUNJLGVBQUE7QUFESjtBQUdJO0VBQ0ksZUFBQTtBQURSO0FBSUk7RUFDSSwwQkFBQTtBQUZSO0FBS0k7RUFDSSxxQkFBQTtFQUNBLFdBQUE7RUFDQSx5QkFBQTtBQUhSO0FBS1E7RUFDSSxhQUFBO0FBSFo7QUFNUTtFQUNJLG1CQUFBO0VBQ0EsV0NwQko7QURnQlI7QUFPUTtFQUNJLGVBQUE7QUFMWjtBQVNZO0VBQ0ksZUFBQTtBQVBoQjtBQVdRO0VBQ0ksZUFBQTtBQVRaO0FBYUk7RUFDSSxXQUFBO0VBQ0EsbUJDNUNHO0FEaUNYO0FBY0k7RUFDSSwwQkFBQTtBQVpSO0FBZUk7RUFDSSxlQUFBO0VBQ0EsYUFBQTtFQUNBLFdBQUE7RUFDQSxZQUFBO0VBQ0EsbUJBQUE7RUFDQSxTQUFBO0FBYlI7QUFlUTtFQUNJLE9BQUE7RUFDQSxhQUFBO0VBQ0EsdUJBQUE7QUFiWjtBQWVZO0VBQ0ksWUFBQTtFQUNBLFNBQUE7QUFiaEI7QUFnQlk7RUFDSSxjQUFBO0FBZGhCIiwiZmlsZSI6InBsYXktY2FyZHMtY291bnRlci5jb21wb25lbnQuc2NzcyIsInNvdXJjZXNDb250ZW50IjpbIkBpbXBvcnQgJ3NyYy9hcHAvc2hhcmVkL3NoYXJlZC5zY3NzJztcblxuOmhvc3Qge1xuICAgIGZvbnQtc2l6ZTogMTRweDtcblxuICAgIGJ1dHRvbiB7XG4gICAgICAgIGZvbnQtc2l6ZTogMTRweDtcbiAgICB9XG5cbiAgICAuYWRkLWJ1dHRvbiB7XG4gICAgICAgIGJvcmRlci1yYWRpdXM6IDAgNHB4IDRweCAwO1xuICAgIH1cblxuICAgIHRhYmxlIHtcbiAgICAgICAgbWFyZ2luOiAxMHB4IDAgODBweCAwO1xuICAgICAgICB3aWR0aDogMTAwJTtcbiAgICAgICAgYm9yZGVyOiAxcHggc29saWQgI0VDRUZGMTtcblxuICAgICAgICB0ZCwgdGgge1xuICAgICAgICAgICAgcGFkZGluZzogMTBweDtcbiAgICAgICAgfVxuXG4gICAgICAgIHRoZWFkIHtcbiAgICAgICAgICAgIGJhY2tncm91bmQ6ICNFQ0VGRjE7XG4gICAgICAgICAgICBjb2xvcjogJGJsYWNrO1xuICAgICAgICB9XG5cbiAgICAgICAgLnBsYXllci1zY29yZS1pbnB1dCBpbnB1dCB7XG4gICAgICAgICAgICBtaW4td2lkdGg6IDU4cHg7XG4gICAgICAgIH1cblxuICAgICAgICAucGxheWVyLXNjb3JlIHtcbiAgICAgICAgICAgIGJ1dHRvbiB7XG4gICAgICAgICAgICAgICAgcGFkZGluZzogMCAxMHB4O1xuICAgICAgICAgICAgfVxuICAgICAgICB9XG5cbiAgICAgICAgLmZhLW1pbnVzLWNpcmNsZSB7XG4gICAgICAgICAgICBmb250LXNpemU6IDE4cHg7XG4gICAgICAgIH1cbiAgICB9XG5cbiAgICAucmVzZXQtc2NvcmUtYnRuIHtcbiAgICAgICAgZmxvYXQ6IGxlZnQ7XG4gICAgICAgIGJhY2tncm91bmQ6ICRkYXJrLXJlZDtcbiAgICB9XG5cbiAgICAucGxheWVyLW5hbWUgYnV0dG9uIHtcbiAgICAgICAgdGV4dC10cmFuc2Zvcm06IGNhcGl0YWxpemU7XG4gICAgfVxuICAgIFxuICAgIC5mb290ZXIge1xuICAgICAgICBwb3NpdGlvbjogZml4ZWQ7XG4gICAgICAgIGRpc3BsYXk6IGZsZXg7XG4gICAgICAgIHdpZHRoOiAxMDAlO1xuICAgICAgICBoZWlnaHQ6IDYwcHg7XG4gICAgICAgIGJhY2tncm91bmQ6ICNFQ0VGRjE7XG4gICAgICAgIGJvdHRvbTogMDtcblxuICAgICAgICAuYWN0aW9uLWJ1dHRvbnMge1xuICAgICAgICAgICAgZmxleDogMTtcbiAgICAgICAgICAgIGRpc3BsYXk6IGZsZXg7XG4gICAgICAgICAgICBqdXN0aWZ5LWNvbnRlbnQ6IGNlbnRlcjtcblxuICAgICAgICAgICAgYnV0dG9uIHtcbiAgICAgICAgICAgICAgICBoZWlnaHQ6IDQwcHg7XG4gICAgICAgICAgICAgICAgdG9wOiAxMHB4O1xuICAgICAgICAgICAgfVxuXG4gICAgICAgICAgICAuYWRkLXNjb3JlLWJ0biB7XG4gICAgICAgICAgICAgICAgbWFyZ2luOiAwIDEwcHg7XG4gICAgICAgICAgICB9XG4gICAgICAgIH1cbiAgICB9XG59XG5cbiIsIiRkYXJrLXJlZDogI2I3MWMxYztcbiR0aGVtZS1jb2xvcjogIzAyNkE3ODtcbiR0aGVtZS1ob3Zlci1jb2xvcjogIzBDOUNCNDtcbiR3aGl0ZTogI2ZmZjtcbiRibGFjazogIzExMTtcbiJdfQ== */");
+/* harmony default export */ __webpack_exports__["default"] = (":host {\n  font-size: 14px;\n}\n:host button {\n  font-size: 14px;\n}\n:host .add-button {\n  border-radius: 0 4px 4px 0;\n}\n:host table {\n  margin: 10px 0 80px 0;\n  width: 100%;\n  border: 1px solid #ECEFF1;\n}\n:host table td, :host table th {\n  padding: 10px;\n}\n:host table thead {\n  background: #ECEFF1;\n  color: #111;\n}\n:host table .rankOnePlayer {\n  background: #00897B;\n  color: #fff;\n}\n:host table .player-score-input input {\n  min-width: 58px;\n}\n:host table .player-score button {\n  padding: 0 10px;\n}\n:host table .fa-minus-circle {\n  font-size: 18px;\n}\n:host .reset-score-btn {\n  float: left;\n  background: #b71c1c;\n}\n:host .player-name button {\n  text-transform: capitalize;\n}\n:host .footer {\n  position: fixed;\n  display: flex;\n  width: 100%;\n  height: 60px;\n  background: #ECEFF1;\n  bottom: 0;\n}\n:host .footer .action-buttons {\n  flex: 1;\n  display: flex;\n  justify-content: center;\n}\n:host .footer .action-buttons button {\n  height: 40px;\n  top: 10px;\n}\n:host .footer .action-buttons .add-score-btn {\n  margin: 0 10px;\n}\n:host button.menu-mat-icon-button {\n  position: absolute;\n  right: 0;\n  padding: 14px 0;\n  bottom: 24px;\n  font-size: 20px;\n}\n::ng-deep .cdk-overlay-container .mat-menu-panel {\n  margin-right: 5px;\n  padding: 15px;\n  max-width: 100%;\n}\n::ng-deep .mat-menu-content .menu-item {\n  margin-bottom: 10px;\n}\n::ng-deep .mat-menu-content section label {\n  margin-bottom: 3px;\n  padding-right: 5px;\n}\n::ng-deep .mat-radio-button ~ .mat-radio-button {\n  margin-left: 5px;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInBsYXktY2FyZHMtY291bnRlci5jb21wb25lbnQuc2NzcyIsIi4uLy4uL3NoYXJlZC9zaGFyZWQuc2NzcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFFQTtFQUNJLGVBQUE7QUFESjtBQUdJO0VBQ0ksZUFBQTtBQURSO0FBSUk7RUFDSSwwQkFBQTtBQUZSO0FBS0k7RUFDSSxxQkFBQTtFQUNBLFdBQUE7RUFDQSx5QkFBQTtBQUhSO0FBS1E7RUFDSSxhQUFBO0FBSFo7QUFNUTtFQUNJLG1CQUFBO0VBQ0EsV0NwQko7QURnQlI7QUFPUTtFQUNJLG1CQUFBO0VBQ0EsV0MxQko7QURxQlI7QUFRUTtFQUNJLGVBQUE7QUFOWjtBQVVZO0VBQ0ksZUFBQTtBQVJoQjtBQVlRO0VBQ0ksZUFBQTtBQVZaO0FBY0k7RUFDSSxXQUFBO0VBQ0EsbUJDakRHO0FEcUNYO0FBZUk7RUFDSSwwQkFBQTtBQWJSO0FBZ0JJO0VBQ0ksZUFBQTtFQUNBLGFBQUE7RUFDQSxXQUFBO0VBQ0EsWUFBQTtFQUNBLG1CQUFBO0VBQ0EsU0FBQTtBQWRSO0FBZ0JRO0VBQ0ksT0FBQTtFQUNBLGFBQUE7RUFDQSx1QkFBQTtBQWRaO0FBZ0JZO0VBQ0ksWUFBQTtFQUNBLFNBQUE7QUFkaEI7QUFpQlk7RUFDSSxjQUFBO0FBZmhCO0FBb0JJO0VBQ0ksa0JBQUE7RUFDQSxRQUFBO0VBQ0EsZUFBQTtFQUNBLFlBQUE7RUFDQSxlQUFBO0FBbEJSO0FBd0JRO0VBQ0ksaUJBQUE7RUFDQSxhQUFBO0VBQ0EsZUFBQTtBQXJCWjtBQTBCUTtFQUNJLG1CQUFBO0FBeEJaO0FBNEJZO0VBQ0ksa0JBQUE7RUFDQSxrQkFBQTtBQTFCaEI7QUErQkk7RUFDSSxnQkFBQTtBQTdCUiIsImZpbGUiOiJwbGF5LWNhcmRzLWNvdW50ZXIuY29tcG9uZW50LnNjc3MiLCJzb3VyY2VzQ29udGVudCI6WyJAaW1wb3J0ICdzcmMvYXBwL3NoYXJlZC9zaGFyZWQuc2Nzcyc7XG5cbjpob3N0IHtcbiAgICBmb250LXNpemU6IDE0cHg7XG5cbiAgICBidXR0b24ge1xuICAgICAgICBmb250LXNpemU6IDE0cHg7XG4gICAgfVxuXG4gICAgLmFkZC1idXR0b24ge1xuICAgICAgICBib3JkZXItcmFkaXVzOiAwIDRweCA0cHggMDtcbiAgICB9XG5cbiAgICB0YWJsZSB7XG4gICAgICAgIG1hcmdpbjogMTBweCAwIDgwcHggMDtcbiAgICAgICAgd2lkdGg6IDEwMCU7XG4gICAgICAgIGJvcmRlcjogMXB4IHNvbGlkICNFQ0VGRjE7XG5cbiAgICAgICAgdGQsIHRoIHtcbiAgICAgICAgICAgIHBhZGRpbmc6IDEwcHg7XG4gICAgICAgIH1cblxuICAgICAgICB0aGVhZCB7XG4gICAgICAgICAgICBiYWNrZ3JvdW5kOiAjRUNFRkYxO1xuICAgICAgICAgICAgY29sb3I6ICRibGFjaztcbiAgICAgICAgfVxuXG4gICAgICAgIC5yYW5rT25lUGxheWVyIHtcbiAgICAgICAgICAgIGJhY2tncm91bmQ6ICMwMDg5N0I7XG4gICAgICAgICAgICBjb2xvcjogJHdoaXRlO1xuICAgICAgICB9XG5cbiAgICAgICAgLnBsYXllci1zY29yZS1pbnB1dCBpbnB1dCB7XG4gICAgICAgICAgICBtaW4td2lkdGg6IDU4cHg7XG4gICAgICAgIH1cblxuICAgICAgICAucGxheWVyLXNjb3JlIHtcbiAgICAgICAgICAgIGJ1dHRvbiB7XG4gICAgICAgICAgICAgICAgcGFkZGluZzogMCAxMHB4O1xuICAgICAgICAgICAgfVxuICAgICAgICB9XG5cbiAgICAgICAgLmZhLW1pbnVzLWNpcmNsZSB7XG4gICAgICAgICAgICBmb250LXNpemU6IDE4cHg7XG4gICAgICAgIH1cbiAgICB9XG5cbiAgICAucmVzZXQtc2NvcmUtYnRuIHtcbiAgICAgICAgZmxvYXQ6IGxlZnQ7XG4gICAgICAgIGJhY2tncm91bmQ6ICRkYXJrLXJlZDtcbiAgICB9XG5cbiAgICAucGxheWVyLW5hbWUgYnV0dG9uIHtcbiAgICAgICAgdGV4dC10cmFuc2Zvcm06IGNhcGl0YWxpemU7XG4gICAgfVxuICAgIFxuICAgIC5mb290ZXIge1xuICAgICAgICBwb3NpdGlvbjogZml4ZWQ7XG4gICAgICAgIGRpc3BsYXk6IGZsZXg7XG4gICAgICAgIHdpZHRoOiAxMDAlO1xuICAgICAgICBoZWlnaHQ6IDYwcHg7XG4gICAgICAgIGJhY2tncm91bmQ6ICNFQ0VGRjE7XG4gICAgICAgIGJvdHRvbTogMDtcblxuICAgICAgICAuYWN0aW9uLWJ1dHRvbnMge1xuICAgICAgICAgICAgZmxleDogMTtcbiAgICAgICAgICAgIGRpc3BsYXk6IGZsZXg7XG4gICAgICAgICAgICBqdXN0aWZ5LWNvbnRlbnQ6IGNlbnRlcjtcblxuICAgICAgICAgICAgYnV0dG9uIHtcbiAgICAgICAgICAgICAgICBoZWlnaHQ6IDQwcHg7XG4gICAgICAgICAgICAgICAgdG9wOiAxMHB4O1xuICAgICAgICAgICAgfVxuXG4gICAgICAgICAgICAuYWRkLXNjb3JlLWJ0biB7XG4gICAgICAgICAgICAgICAgbWFyZ2luOiAwIDEwcHg7XG4gICAgICAgICAgICB9XG4gICAgICAgIH1cbiAgICB9XG5cbiAgICBidXR0b24ubWVudS1tYXQtaWNvbi1idXR0b24ge1xuICAgICAgICBwb3NpdGlvbjogYWJzb2x1dGU7XG4gICAgICAgIHJpZ2h0OiAwO1xuICAgICAgICBwYWRkaW5nOiAxNHB4IDA7XG4gICAgICAgIGJvdHRvbTogMjRweDtcbiAgICAgICAgZm9udC1zaXplOiAyMHB4O1xuICAgIH1cbn1cblxuOjpuZy1kZWVwIHtcbiAgICAuY2RrLW92ZXJsYXktY29udGFpbmVyIHtcbiAgICAgICAgLm1hdC1tZW51LXBhbmVsIHtcbiAgICAgICAgICAgIG1hcmdpbi1yaWdodDogNXB4O1xuICAgICAgICAgICAgcGFkZGluZzogMTVweDtcbiAgICAgICAgICAgIG1heC13aWR0aDogMTAwJTtcbiAgICAgICAgfVxuICAgIH1cblxuICAgIC5tYXQtbWVudS1jb250ZW50IHtcbiAgICAgICAgLm1lbnUtaXRlbSB7XG4gICAgICAgICAgICBtYXJnaW4tYm90dG9tOiAxMHB4O1xuICAgICAgICB9XG5cbiAgICAgICAgc2VjdGlvbiB7XG4gICAgICAgICAgICBsYWJlbCB7XG4gICAgICAgICAgICAgICAgbWFyZ2luLWJvdHRvbTogM3B4O1xuICAgICAgICAgICAgICAgIHBhZGRpbmctcmlnaHQ6IDVweDtcbiAgICAgICAgICAgIH1cbiAgICAgICAgfVxuICAgIH1cblxuICAgIC5tYXQtcmFkaW8tYnV0dG9uIH4gLm1hdC1yYWRpby1idXR0b24ge1xuICAgICAgICBtYXJnaW4tbGVmdDogNXB4O1xuICAgIH1cbn0iLCIkZGFyay1yZWQ6ICNiNzFjMWM7XG4kdGhlbWUtY29sb3I6ICMwMjZBNzg7XG4kdGhlbWUtaG92ZXItY29sb3I6ICMwQzlDQjQ7XG4kd2hpdGU6ICNmZmY7XG4kYmxhY2s6ICMxMTE7XG4iXX0= */");
 
 /***/ }),
 
@@ -1501,7 +1501,8 @@ var PlayCardsCounterComponent = /** @class */ (function () {
     }
     PlayCardsCounterComponent.prototype.ngOnInit = function () {
         this.STORAGE_KEY = this.constructor.name;
-        this.players = this._getDataFromLocalStorage();
+        this.players = this._getDataFromLocalStorage(_play_cards_counter_constants__WEBPACK_IMPORTED_MODULE_6__["STORAGE_TYPE_KEY"].PLAYERS);
+        this.scoreRankType = this._getScoreRankType();
         this._sortPlayers();
     };
     PlayCardsCounterComponent.prototype.ngOnDestroy = function () {
@@ -1551,8 +1552,7 @@ var PlayCardsCounterComponent = /** @class */ (function () {
         return player.scores.length > 0;
     };
     PlayCardsCounterComponent.prototype.getPlayerTotalScore = function (player) {
-        var total = this._getTotalCount(player);
-        return Object(src_app_shared_utils_utils_service__WEBPACK_IMPORTED_MODULE_2__["isNullOrUndefined"])(this._getTotalCount(player)) ? '-' : total;
+        return Object(src_app_shared_utils_utils_service__WEBPACK_IMPORTED_MODULE_2__["isNullOrUndefined"])(player.score) ? '-' : player.score;
     };
     PlayCardsCounterComponent.prototype.onTotalHeaderClick = function () {
         this.totalHeaderArrowDown = !this.totalHeaderArrowDown;
@@ -1566,16 +1566,25 @@ var PlayCardsCounterComponent = /** @class */ (function () {
                 player: player,
                 players: this.players,
                 scoreInputs: this.scoreInputs,
-                totalScore: this._getTotalCount(player)
+                totalScore: player.score
             }
         });
         this._subscriptions.push(dialogRef.afterClosed().subscribe(function () { _this._storeOnLocalStorage(); }));
+    };
+    PlayCardsCounterComponent.prototype.onScoreRankTypeChange = function () {
+        this._storeOnLocalStorage();
+    };
+    PlayCardsCounterComponent.prototype.isRankOnePlayer = function (player) {
+        var players = this.scoreRankType === _play_cards_counter_constants__WEBPACK_IMPORTED_MODULE_6__["SCORE_RANK_TYPE"].Low
+            ? this._getPlayerBasedOnScore(_play_cards_counter_constants__WEBPACK_IMPORTED_MODULE_6__["SCORE_RANK_TYPE"].Low)
+            : this._getPlayerBasedOnScore(_play_cards_counter_constants__WEBPACK_IMPORTED_MODULE_6__["SCORE_RANK_TYPE"].High);
+        return players.some(function (plyr) { return plyr.name === player.name; });
     };
     PlayCardsCounterComponent.prototype.openScoresDialog = function (player) {
         this._dialog.open(_scores_dialog_scores_dialog_component__WEBPACK_IMPORTED_MODULE_3__["ScoresDialogComponent"], {
             data: {
                 player: player,
-                totalScore: this._getTotalCount(player)
+                totalScore: player.score
             }
         });
     };
@@ -1623,29 +1632,26 @@ var PlayCardsCounterComponent = /** @class */ (function () {
         return !!(this.players.find(function (item) { return item.name.toLowerCase() === _this.playerName.toLowerCase(); }));
     };
     PlayCardsCounterComponent.prototype._sortPlayers = function (ascOrder) {
-        var _this = this;
         if (ascOrder === void 0) { ascOrder = true; }
         this.players.sort(function (p1, p2) {
-            if (_this._getTotalCount(p1) < _this._getTotalCount(p2)) {
+            if (p1.score < p2.score) {
                 return ascOrder ? -1 : 1;
             }
-            if (_this._getTotalCount(p1) > _this._getTotalCount(p2)) {
+            if (p1.score > p2.score) {
                 return ascOrder ? 1 : -1;
             }
             return 0;
         });
     };
-    PlayCardsCounterComponent.prototype._getTotalCount = function (player) {
-        return player.scores.reduce(function (a, b) { return a + b; }, 0);
-    };
     PlayCardsCounterComponent.prototype._arePlayersAndScoresEqual = function () {
         return Object.keys(this.scoreInputs).length === Object.keys(this.players).length;
     };
     PlayCardsCounterComponent.prototype._storeOnLocalStorage = function () {
-        this.storage.set(this.STORAGE_KEY, this.players);
+        this.storage.set(this.STORAGE_KEY + _play_cards_counter_constants__WEBPACK_IMPORTED_MODULE_6__["STORAGE_TYPE_KEY"].PLAYERS, this.players);
+        this.storage.set(this.STORAGE_KEY + _play_cards_counter_constants__WEBPACK_IMPORTED_MODULE_6__["STORAGE_TYPE_KEY"].SCORE_RANK_TYPE, this.scoreRankType);
     };
-    PlayCardsCounterComponent.prototype._getDataFromLocalStorage = function () {
-        return this.storage.get(this.STORAGE_KEY) || [];
+    PlayCardsCounterComponent.prototype._getDataFromLocalStorage = function (key) {
+        return this.storage.get(this.STORAGE_KEY + key) || [];
     };
     PlayCardsCounterComponent.prototype._resetPlayersHandler = function () {
         this.players = [];
@@ -1679,10 +1685,28 @@ var PlayCardsCounterComponent = /** @class */ (function () {
                 return;
             }
             playerDetails.scores.push(playerScore);
+            playerDetails.score = playerDetails.scores.reduce(function (a, b) { return a + b; }, 0);
             _this.scoreInputs[playerName] = 0;
         });
         this._sortPlayers(this.totalHeaderArrowDown);
         this._storeOnLocalStorage();
+    };
+    PlayCardsCounterComponent.prototype._getPlayerBasedOnScore = function (scoreRankType) {
+        var players = this.players.reduce(function (result, player) {
+            result[player.name] = player.score;
+            return result;
+        }, {});
+        var lowestScore = Object(src_app_shared_utils_utils_service__WEBPACK_IMPORTED_MODULE_2__["getValueFromObjectsByType"])(players, _play_cards_counter_constants__WEBPACK_IMPORTED_MODULE_6__["SCORE_RANK_TYPE"].Low);
+        var highestScore = Object(src_app_shared_utils_utils_service__WEBPACK_IMPORTED_MODULE_2__["getValueFromObjectsByType"])(players, _play_cards_counter_constants__WEBPACK_IMPORTED_MODULE_6__["SCORE_RANK_TYPE"].High);
+        return this.players.filter(function (player) {
+            return (scoreRankType === _play_cards_counter_constants__WEBPACK_IMPORTED_MODULE_6__["SCORE_RANK_TYPE"].Low && player.score === lowestScore) || (scoreRankType === _play_cards_counter_constants__WEBPACK_IMPORTED_MODULE_6__["SCORE_RANK_TYPE"].High && player.score === highestScore);
+        });
+    };
+    PlayCardsCounterComponent.prototype._getScoreRankType = function () {
+        var scoreRankType = this._getDataFromLocalStorage(_play_cards_counter_constants__WEBPACK_IMPORTED_MODULE_6__["STORAGE_TYPE_KEY"].SCORE_RANK_TYPE);
+        return (Object(src_app_shared_utils_utils_service__WEBPACK_IMPORTED_MODULE_2__["isNullOrUndefined"])(scoreRankType) || scoreRankType.length === 0)
+            ? _play_cards_counter_constants__WEBPACK_IMPORTED_MODULE_6__["SCORE_RANK_TYPE"].Low
+            : scoreRankType;
     };
     PlayCardsCounterComponent.ctorParameters = function () { return [
         { type: undefined, decorators: [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Inject"], args: [ngx_webstorage_service__WEBPACK_IMPORTED_MODULE_4__["LOCAL_STORAGE"],] }] },
@@ -1707,15 +1731,27 @@ var PlayCardsCounterComponent = /** @class */ (function () {
 /*!*****************************************************************************!*\
   !*** ./src/app/projects/play-cards-counter/play-cards-counter.constants.ts ***!
   \*****************************************************************************/
-/*! exports provided: ARE_YOU_SURE, ERROR */
+/*! exports provided: ARE_YOU_SURE, ERROR, SCORE_RANK_TYPE, STORAGE_TYPE_KEY */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ARE_YOU_SURE", function() { return ARE_YOU_SURE; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ERROR", function() { return ERROR; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SCORE_RANK_TYPE", function() { return SCORE_RANK_TYPE; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "STORAGE_TYPE_KEY", function() { return STORAGE_TYPE_KEY; });
 var ARE_YOU_SURE = 'Are you sure?';
 var ERROR = 'Error!';
+var SCORE_RANK_TYPE;
+(function (SCORE_RANK_TYPE) {
+    SCORE_RANK_TYPE["Low"] = "low";
+    SCORE_RANK_TYPE["High"] = "high";
+})(SCORE_RANK_TYPE || (SCORE_RANK_TYPE = {}));
+;
+var STORAGE_TYPE_KEY = {
+    PLAYERS: 'players',
+    SCORE_RANK_TYPE: 'scoreRankType'
+};
 
 
 /***/ }),
@@ -2363,12 +2399,16 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_material_progress_spinner__WEBPACK_IMPORTED_MODULE_34__ = __webpack_require__(/*! @angular/material/progress-spinner */ "./node_modules/@angular/material/__ivy_ngcc__/fesm2015/progress-spinner.js");
 /* harmony import */ var _angular_cdk_drag_drop__WEBPACK_IMPORTED_MODULE_35__ = __webpack_require__(/*! @angular/cdk/drag-drop */ "./node_modules/@angular/cdk/__ivy_ngcc__/fesm2015/drag-drop.js");
 /* harmony import */ var _angular_material_list__WEBPACK_IMPORTED_MODULE_36__ = __webpack_require__(/*! @angular/material/list */ "./node_modules/@angular/material/__ivy_ngcc__/fesm2015/list.js");
+/* harmony import */ var _angular_material_menu__WEBPACK_IMPORTED_MODULE_37__ = __webpack_require__(/*! @angular/material/menu */ "./node_modules/@angular/material/__ivy_ngcc__/fesm2015/menu.js");
+/* harmony import */ var _angular_material_radio__WEBPACK_IMPORTED_MODULE_38__ = __webpack_require__(/*! @angular/material/radio */ "./node_modules/@angular/material/__ivy_ngcc__/fesm2015/radio.js");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
+
+
 
 
 
@@ -2448,6 +2488,8 @@ var MaterialModule = /** @class */ (function () {
                 _angular_material_tree__WEBPACK_IMPORTED_MODULE_33__["MatTreeModule"],
                 _angular_material_progress_spinner__WEBPACK_IMPORTED_MODULE_34__["MatProgressSpinnerModule"],
                 _angular_material_list__WEBPACK_IMPORTED_MODULE_36__["MatListModule"],
+                _angular_material_menu__WEBPACK_IMPORTED_MODULE_37__["MatMenuModule"],
+                _angular_material_radio__WEBPACK_IMPORTED_MODULE_38__["MatRadioModule"],
                 _angular_cdk_portal__WEBPACK_IMPORTED_MODULE_2__["PortalModule"]
             ]
         })
@@ -2529,11 +2571,30 @@ var SharedModule = /** @class */ (function () {
 
 /***/ }),
 
+/***/ "./src/app/shared/utils/utils.constants.ts":
+/*!*************************************************!*\
+  !*** ./src/app/shared/utils/utils.constants.ts ***!
+  \*************************************************/
+/*! exports provided: ValueType */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ValueType", function() { return ValueType; });
+var ValueType;
+(function (ValueType) {
+    ValueType["Low"] = "low";
+    ValueType["High"] = "high";
+})(ValueType || (ValueType = {}));
+
+
+/***/ }),
+
 /***/ "./src/app/shared/utils/utils.service.ts":
 /*!***********************************************!*\
   !*** ./src/app/shared/utils/utils.service.ts ***!
   \***********************************************/
-/*! exports provided: isString, isFunction, isNullOrUndefined, isEmptyString, buildDate */
+/*! exports provided: isString, isFunction, isNullOrUndefined, isEmptyString, buildDate, getValueFromObjectsByType */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -2543,6 +2604,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "isNullOrUndefined", function() { return isNullOrUndefined; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "isEmptyString", function() { return isEmptyString; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "buildDate", function() { return buildDate; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getValueFromObjectsByType", function() { return getValueFromObjectsByType; });
+/* harmony import */ var _utils_constants__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./utils.constants */ "./src/app/shared/utils/utils.constants.ts");
+
 function isString(value) {
     return typeof value === 'string';
 }
@@ -2562,6 +2626,19 @@ function buildDate(beginDate, endDate) {
     var beginDateValue = monthNames[bDate.getMonth()] + " " + bDate.getFullYear();
     var endDateValue = endDate && monthNames[eDate.getMonth()] + " " + eDate.getFullYear();
     return beginDateValue + " - " + (endDateValue || 'Present');
+}
+function getValueFromObjectsByType(obj, type) {
+    var objKeys = Object.keys(obj);
+    var lowestScore = obj[objKeys[0]];
+    var highestScore = obj[objKeys[0]];
+    for (var i = 1; i < objKeys.length; i++) {
+        var value = obj[objKeys[i]];
+        if (value < lowestScore)
+            lowestScore = value;
+        if (value > highestScore)
+            highestScore = value;
+    }
+    return type === _utils_constants__WEBPACK_IMPORTED_MODULE_0__["ValueType"].Low ? lowestScore : highestScore;
 }
 
 
