@@ -1490,8 +1490,8 @@ var __importDefault = (undefined && undefined.__importDefault) || function (mod)
 
 
 var PlayCardsCounterComponent = /** @class */ (function () {
-    function PlayCardsCounterComponent(storage, _dialog) {
-        this.storage = storage;
+    function PlayCardsCounterComponent(_storage, _dialog) {
+        this._storage = _storage;
         this._dialog = _dialog;
         this.playerName = '';
         this.players = [];
@@ -1639,7 +1639,7 @@ var PlayCardsCounterComponent = /** @class */ (function () {
     };
     PlayCardsCounterComponent.prototype._playerExists = function () {
         var _this = this;
-        return !!(this.players.find(function (item) { return item.name.toLowerCase() === _this.playerName.toLowerCase(); }));
+        return !!(this.players.find(function (item) { return (item.name && item.name.toLowerCase()) === (_this.playerName && _this.playerName.toLowerCase()); }));
     };
     PlayCardsCounterComponent.prototype._sortPlayers = function (ascOrder) {
         if (ascOrder === void 0) { ascOrder = true; }
@@ -1657,11 +1657,11 @@ var PlayCardsCounterComponent = /** @class */ (function () {
         return Object.keys(this.scoreInputs).length === Object.keys(this.players).length;
     };
     PlayCardsCounterComponent.prototype._storeOnLocalStorage = function () {
-        this.storage.set(this.STORAGE_KEY + _play_cards_counter_constants__WEBPACK_IMPORTED_MODULE_6__["STORAGE_TYPE_KEY"].PLAYERS, this.players);
-        this.storage.set(this.STORAGE_KEY + _play_cards_counter_constants__WEBPACK_IMPORTED_MODULE_6__["STORAGE_TYPE_KEY"].SCORE_MENU, this.scoreMenu);
+        this._storage.set(this.STORAGE_KEY + _play_cards_counter_constants__WEBPACK_IMPORTED_MODULE_6__["STORAGE_TYPE_KEY"].PLAYERS, this.players);
+        this._storage.set(this.STORAGE_KEY + _play_cards_counter_constants__WEBPACK_IMPORTED_MODULE_6__["STORAGE_TYPE_KEY"].SCORE_MENU, this.scoreMenu);
     };
     PlayCardsCounterComponent.prototype._getDataFromLocalStorage = function (key) {
-        return this.storage.get(this.STORAGE_KEY + key) || [];
+        return this._storage.get(this.STORAGE_KEY + key) || [];
     };
     PlayCardsCounterComponent.prototype._resetPlayersHandler = function () {
         this.players = [];
