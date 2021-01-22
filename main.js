@@ -2390,7 +2390,6 @@ var SearchMeComponent = /** @class */ (function () {
     }
     SearchMeComponent.prototype.ngOnInit = function () {
         this._reset();
-        this.searchValue = "about";
     };
     SearchMeComponent.prototype.hasSearchMatch = function (key) {
         var items = key && _search_me_constants__WEBPACK_IMPORTED_MODULE_3__["SEARCH_ITEMS"][key];
