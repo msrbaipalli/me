@@ -486,8 +486,8 @@ module.exports = content.locals || {};
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! /Users/mangabaipalli/Desktop/MSRB.ME-Dev/node_modules/bootstrap/dist/css/bootstrap.min.css */"./node_modules/bootstrap/dist/css/bootstrap.min.css");
-module.exports = __webpack_require__(/*! /Users/mangabaipalli/Desktop/MSRB.ME-Dev/src/styles.scss */"./src/styles.scss");
+__webpack_require__(/*! /Users/mangabaipalli/Desktop/MSRB.ME/MSRB.ME-Dev/node_modules/bootstrap/dist/css/bootstrap.min.css */"./node_modules/bootstrap/dist/css/bootstrap.min.css");
+module.exports = __webpack_require__(/*! /Users/mangabaipalli/Desktop/MSRB.ME/MSRB.ME-Dev/src/styles.scss */"./src/styles.scss");
 
 
 /***/ })
