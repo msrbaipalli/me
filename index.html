@@ -7,6 +7,12 @@
   <meta name="author" content="Srinivas Baipalli, Manga Srinivas Rao Baipalli">
   <meta name="keywords" content="Full Stack Developer, Software Engineer, Web Developer, Frontend Developer, Backend Developer, JavaScript, TypeScript, Angular, React, Node.js, Spring Boot, AWS, Cloud Developer, UI/UX, API Integration, Developer Portfolio, MSRB, msrb.me, Responsive Web Design, Healthcare Tech, Healthtech, Fintech, SaaS Developer, Digital Health, Financial Technology, Enterprise Applications, Software Architecture, Tech Consultant, B2B Software">
   <title>MSRB</title>
+  <script>
+    if (window.location.hash && window.location.hash.startsWith('#/')) {
+      const newUrl = window.location.origin + window.location.hash.slice(1);
+      window.location.replace(newUrl);
+    }
+  </script>
   <base href="./">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="icon" type="image/x-icon" href="favicon.ico">
